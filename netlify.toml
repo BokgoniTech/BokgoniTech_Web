@@ -4,6 +4,14 @@
   command = "npm run build"
   publish = "dist"
 
+# This is a frontend-only (Vite) app. All VITE_* values are compiled into the
+# public browser bundle BY DESIGN — they are not secrets. Firebase web config
+# (incl. the API key) is meant to be public; data is protected by the deployed
+# Firestore/Storage security rules, not by hiding these values. So we tell
+# Netlify's secrets scanner not to flag them.
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "VITE_FIREBASE_API_KEY,VITE_FIREBASE_AUTH_DOMAIN,VITE_FIREBASE_PROJECT_ID,VITE_FIREBASE_STORAGE_BUCKET,VITE_FIREBASE_MESSAGING_SENDER_ID,VITE_FIREBASE_APP_ID,VITE_CONTACT_WHATSAPP,VITE_CONTACT_EMAIL,VITE_CONTACT_PHONE,VITE_CONTACT_LOCATION"
+
 # Single-page-app fallback: serve index.html for every route so React Router
 # can handle client-side navigation and page refreshes don't 404.
 [[redirects]]
