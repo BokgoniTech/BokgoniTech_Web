@@ -1,0 +1,12 @@
+# Netlify configuration for the Bokgoni Tech (Vite + React Router) site.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Single-page-app fallback: serve index.html for every route so React Router
+# can handle client-side navigation and page refreshes don't 404.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
