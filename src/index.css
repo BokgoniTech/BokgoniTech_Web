@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-brand-950 text-brand-100 font-sans antialiased;
+    background-image: radial-gradient(
+        60rem 60rem at 80% -10%,
+        rgba(61, 155, 255, 0.08),
+        transparent 60%
+      ),
+      radial-gradient(50rem 50rem at -10% 20%, rgba(42, 71, 144, 0.12), transparent 55%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    @apply bg-accent/30 text-white;
+  }
+}
+
+@layer components {
+  .container-bt {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold
+      transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent/60 disabled:opacity-50
+      disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply btn bg-accent text-brand-950 hover:bg-accent-soft hover:shadow-glow;
+  }
+
+  .btn-secondary {
+    @apply btn border border-brand-600 bg-brand-800/60 text-brand-100 hover:border-accent/60 hover:bg-brand-700;
+  }
+
+  .btn-ghost {
+    @apply btn text-brand-200 hover:bg-brand-800/60 hover:text-white;
+  }
+
+  .card {
+    @apply rounded-2xl border border-brand-700/70 bg-brand-900/60 p-6 backdrop-blur
+      transition-colors duration-200;
+  }
+
+  .card-hover {
+    @apply card hover:border-accent/50 hover:bg-brand-800/70;
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-brand-700 bg-brand-950/60 px-4 py-2.5 text-sm text-brand-100
+      placeholder:text-brand-300/50 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/50;
+  }
+
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-brand-200;
+  }
+
+  .badge {
+    @apply inline-flex items-center rounded-full border border-brand-600 bg-brand-800/60 px-3 py-1
+      text-xs font-medium text-brand-200;
+  }
+
+  .section {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-accent;
+  }
+}

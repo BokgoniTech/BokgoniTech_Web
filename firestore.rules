@@ -1,0 +1,55 @@
+rules_version = '2';
+
+// ---------------------------------------------------------------------------
+// Bokgoni Tech — Firestore security rules
+// ---------------------------------------------------------------------------
+// Principle: the public can ONLY read published activity entries and SUBMIT
+// service requests. Everything internal (jobs, customer details, all request
+// reads, staff records) requires an authenticated staff account.
+// ---------------------------------------------------------------------------
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // True if the request comes from a signed-in user that has a staff record.
+    function isStaff() {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/staff/$(request.auth.uid));
+    }
+
+    // ---- Activity Log -----------------------------------------------------
+    // Public can read entries flagged isPublic == true.
+    // Staff can read everything and write.
+    match /activityLog/{docId} {
+      allow read: if resource.data.isPublic == true || isStaff();
+      allow create, update, delete: if isStaff();
+    }
+
+    // ---- Service Requests -------------------------------------------------
+    // Anyone may CREATE a request (the public form). Only staff may read,
+    // update or delete them — protects customer contact details.
+    match /requests/{docId} {
+      allow create: if true;
+      allow read, update, delete: if isStaff();
+    }
+
+    // ---- Repair Jobs (internal only) -------------------------------------
+    match /jobs/{docId} {
+      allow read, write: if isStaff();
+    }
+
+    // ---- Staff records ----------------------------------------------------
+    // A signed-in user may read their own record (to load their role/name).
+    // Creating/editing staff is done in the Firebase console (or by an admin
+    // function), never from the client.
+    match /staff/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    // Default deny everything else.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

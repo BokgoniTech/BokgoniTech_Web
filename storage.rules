@@ -1,0 +1,33 @@
+rules_version = '2';
+
+// ---------------------------------------------------------------------------
+// Bokgoni Tech — Cloud Storage security rules
+// ---------------------------------------------------------------------------
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isStaff() {
+      return request.auth != null;
+    }
+
+    // Activity log images (before/after) — public can VIEW, only staff upload.
+    match /activity/{allPaths=**} {
+      allow read: if true;
+      allow write: if isStaff()
+        && request.resource.size < 8 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    // Request photos — anyone may UPLOAD (from the public form), only staff read.
+    match /requests/{allPaths=**} {
+      allow read: if isStaff();
+      allow write: if request.resource.size < 8 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
