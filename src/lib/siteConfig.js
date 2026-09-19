@@ -1,244 +1,451 @@
-// Central content & configuration for Bokgoni Tech.
+// Central content & configuration for the Bokgoni Tech site.
 // Edit copy here — components read from these objects so you rarely touch JSX.
+//
+// Source of truth for everything below is the platform's own product docs in
+// BokgoniTech_Agent/docs/product/. If a claim changes there, change it here —
+// and nowhere else on the site.
 
 export const contact = {
   whatsapp: import.meta.env.VITE_CONTACT_WHATSAPP || '27000000000',
   email: import.meta.env.VITE_CONTACT_EMAIL || 'hello@bokgonitech.co.za',
   phone: import.meta.env.VITE_CONTACT_PHONE || '+27 00 000 0000',
   location: import.meta.env.VITE_CONTACT_LOCATION || 'Pretoria, South Africa',
-  hours: 'Mon–Fri 08:00–17:00 · Sat 09:00–13:00',
+  hours: 'Mon–Fri 08:00–17:00',
 }
 
-export const whatsappLink = (message = "Hi Bokgoni Tech, I'd like to enquire about a service.") =>
-  `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(message)}`
+export const whatsappLink = (
+  message = "Hi Bokgoni Tech, I'd like to talk about the endpoint management platform.",
+) => `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(message)}`
 
-// --- Top-level services (cards + /services overview) --------------------------
-export const services = [
+// --- The product ------------------------------------------------------------
+
+export const product = {
+  name: 'Bokgoni Endpoint Management',
+  tagline: 'Know what your Windows machines are actually doing.',
+  oneLiner:
+    'A tool for looking after Windows computers you are responsible for but are not sitting in front of.',
+  summary:
+    'You install a small program on each machine. It reports what that machine looks like, and lets you act on it from a web page — check what is wrong, install updates, run a fix, restart it.',
+  platform: 'Windows only',
+}
+
+// --- The five questions it answers (plus the sixth, not built) ---------------
+// Each builds on the last: a tool that answers the fifth without the first is
+// guessing.
+
+export const questions = [
   {
-    slug: 'device-repair',
-    name: 'Device Repair',
-    short: 'Keeping devices running.',
-    problem: 'Broken phone or laptop',
-    solution: 'Repair, replace parts, diagnose faults',
-    tagline: 'Phone and Laptop Repair',
-    icon: 'wrench',
-    available: true,
+    slug: 'inventory',
+    icon: 'list',
+    question: 'What computers do I have?',
+    answer: 'Every machine, what it is, what is on it',
+    state: 'built',
   },
   {
-    slug: 'it-support',
-    name: 'IT Support & Enhancement',
-    short: 'Reliable support and system enhancement.',
-    problem: 'Slow, unreliable office technology',
-    solution: 'Support computers, Wi-Fi, printers, email and backups',
-    tagline: 'Technology that keeps your business running',
-    icon: 'server',
-    available: true,
+    slug: 'health',
+    icon: 'chart',
+    question: 'How are they doing?',
+    answer: 'Disk, memory, processor, network — now and over time',
+    state: 'built',
   },
   {
-    slug: 'cybersecurity',
-    name: 'Cybersecurity',
-    short: 'Protecting data, devices and business systems.',
-    problem: 'Accounts, devices or data are at risk',
-    solution: 'Protect access, devices, networks and information',
-    tagline: 'Protect your devices, accounts and business information',
+    slug: 'alerting',
+    icon: 'bell',
+    question: 'What needs my attention?',
+    answer: 'Alerts when something crosses a line you set',
+    state: 'built',
+  },
+  {
+    slug: 'action',
+    icon: 'bolt',
+    question: 'Can I fix it from here?',
+    answer: 'Run a script, restart a service, restart the machine',
+    state: 'built',
+  },
+  {
+    slug: 'posture',
     icon: 'shield',
-    available: true,
+    question: 'Are they protected?',
+    answer: 'Antivirus, firewall, encryption, updates, who can sign in',
+    state: 'built',
   },
   {
-    slug: 'software-development',
-    name: 'Software Development',
-    short: 'Custom websites, applications and business tools.',
-    problem: 'Manual business processes',
-    solution: 'Build websites, portals, apps and systems',
-    tagline: 'Software built around how your business works',
-    icon: 'code',
-    available: true,
-  },
-  {
-    slug: 'innovation',
-    name: 'Innovation & Automation',
-    short: 'Robotics, IoT, AI and automation for the future.',
-    problem: 'Repeated work wastes time',
-    solution: 'Use AI, automation, IoT and smart systems',
-    tagline: 'Future Innovation',
-    icon: 'spark',
-    available: false, // "Coming as Bokgoni Tech grows"
+    slug: 'detection',
+    icon: 'eye',
+    question: 'Is something malicious happening?',
+    answer: 'Detection and response — deliberately last, and not built',
+    state: 'not-started',
   },
 ]
 
-// --- Detailed service-page content -------------------------------------------
-export const serviceDetails = {
-  'device-repair': {
-    headline: 'Phone and Laptop Repair',
-    intro:
-      'Fast, careful repairs with clear records and a warranty. We diagnose first, quote before any work, and test before collection.',
-    serviceList: [
-      'Phone screen replacement',
-      'Battery replacement',
-      'Charging-port repair',
-      'Speaker, microphone and camera repair',
-      'Back-cover replacement',
-      'Software troubleshooting',
-      'Laptop screen replacement',
-      'Keyboard replacement',
-      'RAM and SSD upgrades',
-      'Laptop battery replacement',
-      'Operating-system installation',
-      'Virus removal',
-      'Device cleaning and performance improvement',
-    ],
-    workflow: [
-      'Device inspection',
-      'Problem diagnosis',
-      'Quote provided',
-      'Customer approval',
-      'Repair completed',
-      'Device tested',
-      'Customer collection',
-      'Repair record and warranty provided',
-    ],
+// --- What it does: the capability sections ----------------------------------
+
+export const capabilities = [
+  {
+    slug: 'inventory',
+    icon: 'list',
+    nav: 'What you have',
+    title: 'It tells you what computers you have',
+    body: 'Every machine that has the agent installed appears in a list. For each one you can see the make and model, how much memory and disk it has, what version of Windows it runs, and what software is installed.',
+    pullTitle: 'Why that is worth anything',
+    pull: 'Most people who look after twenty computers do not actually have a list of them. They have a spreadsheet somebody stopped updating, and a memory of a laptop somebody left with.',
   },
-  'it-support': {
-    headline: 'Technology that keeps your business running',
-    intro:
-      'We keep your computers, network, email and backups working so your business runs without interruption — on-site or remotely.',
-    serviceList: [
-      'Computer and laptop support',
-      'Wi-Fi and network setup',
-      'Printer and scanner support',
-      'Microsoft 365 and business email setup',
-      'Cloud storage and file sharing',
-      'Data backup setup',
-      'Software installation',
-      'New employee device setup',
-      'Business device maintenance',
-      'Remote and on-site support',
-    ],
-    audience: [
-      'Small offices',
-      'Shops',
-      'Schools',
-      'Churches',
-      'Property businesses',
-      'Startups',
-      'Professional services',
-      'Community organisations',
-    ],
-    packages: [
-      { name: 'Essential Support', for: 'For individuals and very small businesses' },
+  {
+    slug: 'health',
+    icon: 'chart',
+    nav: 'How they are doing',
+    title: 'It tells you how they are doing',
+    body: 'Disk space, memory, processor, network traffic — right now, and as a history so you can see a machine getting worse rather than only that it is bad today.',
+    pullTitle: 'The question it really answers',
+    pull: 'Which machines are about to cause me a problem? A disk at 96% is not an emergency this morning and is one on Friday.',
+  },
+  {
+    slug: 'alerting',
+    icon: 'bell',
+    nav: 'What needs attention',
+    title: 'It tells you when something needs attention',
+    body: 'You set a line — “tell me when any machine drops below 10% free disk” — and it tells you when a machine crosses it. By email, if you want.',
+    points: [
       {
-        name: 'Small Office Support',
-        for: 'For businesses with computers, Wi-Fi, printers and email',
+        label: 'It waits before shouting',
+        text: 'You can say “only if it stays that way for three checks”, so a momentary spike does not wake anybody.',
       },
       {
-        name: 'Managed IT Support',
-        for: 'Ongoing monitoring, support, backups and system improvement',
+        label: 'It tells you when it stops',
+        text: 'An alert that fires and never resolves is a tool you learn to ignore.',
+      },
+      {
+        label: 'Maintenance windows',
+        text: 'Patching a hundred machines at 2am should not send a hundred emails. The alerts still happen and still get recorded; only the emails are held.',
       },
     ],
   },
-  cybersecurity: {
-    headline: 'Protect your devices, accounts and business information',
-    intro:
-      'We help reduce cyber risk through practical security controls, monitoring, training and recovery planning.',
-    serviceList: [
-      'Cybersecurity health checks',
-      'Password and MFA setup',
-      'Secure business email',
-      'Antivirus and endpoint protection',
-      'Backup and recovery planning',
-      'Secure Wi-Fi and router configuration',
-      'Device updates and patching',
-      'Employee security awareness training',
-      'Account access management',
-      'Incident-response planning',
+  {
+    slug: 'action',
+    icon: 'bolt',
+    nav: 'Fixing things remotely',
+    title: 'It lets you fix things from where you are',
+    body: 'Everything that runs is recorded: what ran, who asked for it, when, and what came back. That record is kept on the server, not on the machine — a record held by the computer under investigation is worth nothing.',
+    list: [
+      'Run a saved script on one machine or a group',
+      'Restart a service that has stopped',
+      'Restart or shut down a machine',
+      'Run a diagnostic — six read-only checks that tell you what is wrong without changing anything',
+      'On a schedule — anything you run by hand more than once',
     ],
   },
-  'software-development': {
-    headline: 'Software built around how your business works',
-    intro:
-      'From a simple business website to a full job-management portal — we map your workflow, build in stages and support it after launch.',
-    serviceList: [
-      'Business websites',
-      'E-commerce websites',
-      'Booking systems',
-      'Client portals',
-      'Inventory systems',
-      'Job-management systems',
-      'Internal dashboards',
-      'Mobile apps',
-      'Payment integrations',
-      'Business automation',
-      'Custom software',
-    ],
-    workflow: [
-      'Understand the problem',
-      'Map the workflow',
-      'Design the solution',
-      'Build in stages',
-      'Test with users',
-      'Launch',
-      'Support and improve',
+  {
+    slug: 'posture',
+    icon: 'shield',
+    nav: 'Whether they are protected',
+    title: 'It tells you whether they are protected',
+    body: 'Windows updates, in particular: what is missing, how long since the machine last checked, and whether anything is a security update.',
+    list: [
+      'Antivirus — which one, is it on, is it up to date',
+      'Firewall — per profile, not just “on”',
+      'Disk encryption and TPM',
+      'Secure Boot and UAC',
+      'Who has administrator rights on each machine',
+      'Failed sign-in attempts — how many, from where',
+      'Every USB storage device ever plugged in',
     ],
   },
-  innovation: {
-    headline: 'Future Innovation',
-    intro: 'Bokgoni Tech is building toward practical use of:',
-    serviceList: [
-      'AI assistants and business automation',
-      'Smart sensors and IoT systems',
-      'Automated reporting',
-      'Smart security systems',
-      'Robotics education and solutions',
-      'Connected business systems',
+  {
+    slug: 'patching',
+    icon: 'download',
+    nav: 'Installing updates',
+    title: 'It installs updates',
+    body: 'Pick a machine, click install. It installs what Windows says is missing, one update at a time, and reports each one individually.',
+    quote: '6 installed, 2 need a restart, 1 failed',
+    pullTitle: 'Why that last line matters',
+    pull: 'Most tools tell you the job finished. This tells you what the job achieved — and if nothing installed, it says so plainly rather than reporting a successful run that did nothing.',
+    note: 'It never restarts the machine on its own. It tells you a restart is needed and stops. Taking somebody’s work away without asking is not a feature.',
+  },
+]
+
+// --- How it works: the three pieces -----------------------------------------
+
+export const pieces = [
+  {
+    slug: 'agent',
+    name: 'The agent',
+    where: 'the machine you look after',
+    icon: 'monitor',
+    summary: 'A small Windows service. Reports every minute, runs what you ask.',
+    body: 'A small program installed on each machine, running as a Windows service — so it starts with the computer and nobody has to be signed in. Once a minute it looks at the machine and sends a report. It holds a connection open so you can send it work.',
+    points: [
+      {
+        label: 'It dials out, never in',
+        text: 'Your server never connects to a customer’s machine. This is not a preference — most machines sit behind a router or a firewall you do not control, and nothing outside can reach them. The agent making the call is the only arrangement that works, and it happens to be the safer one: there is no door on the customer’s machine for anyone to knock on.',
+      },
+      {
+        label: 'If it cannot reach your server, it keeps the reports on disk',
+        text: 'They are sent when the connection comes back. A laptop that spent the weekend offline does not lose the weekend.',
+      },
     ],
+  },
+  {
+    slug: 'backend',
+    name: 'The backend',
+    where: 'your server',
+    icon: 'database',
+    summary: 'Stores it all. Decides what needs attention.',
+    body: 'Where everything is stored and every decision is made. It keeps the history for every machine, checks alert rules and sends the emails, and holds the record of every command ever issued — who, what, when, and the result.',
+    points: [
+      {
+        label: 'Every customer’s data is separated at the database level',
+        text: 'Not by a filter somebody remembered to write. A query that forgot to say “and only this customer” returns nothing rather than everything, because the database itself refuses.',
+      },
+    ],
+  },
+  {
+    slug: 'dashboard',
+    name: 'The dashboard',
+    where: 'your browser',
+    icon: 'dashboard',
+    summary: 'The web page you actually look at.',
+    body: 'A list of machines, a page per machine, alerts, and the administrative settings. It reads from your server.',
+    points: [
+      {
+        label: 'It never talks to a customer’s machine directly',
+        text: 'What you are looking at is your server’s record, not something the machine under investigation told the page just now.',
+      },
+    ],
+  },
+]
+
+// --- How a command travels ---------------------------------------------------
+
+export const commandLifecycle = [
+  { actor: 'You', text: 'click “Restart the print spooler” on a machine’s page' },
+  { actor: 'The dashboard', text: 'tells the backend; the backend writes it down as issued' },
+  { actor: 'The agent', text: 'holding its connection open, picks it up' },
+  {
+    actor: 'The agent',
+    text: 'writes it to disk before running it. If the machine dies mid-command, it knows on restart that it owes you an answer',
+    emphasis: true,
+  },
+  { actor: 'The agent', text: 'runs it, and sends back what happened' },
+  { actor: 'The backend', text: 'records the result' },
+]
+
+export const commandLifecycleNotes = [
+  {
+    label: 'Why the audit trail is trustworthy',
+    text: 'At every step both sides can say what state the command is in. A command that was never delivered, one still running, and one that finished are three different things — and a tool that cannot tell them apart will eventually tell you a machine is fine when nobody ever asked it anything.',
+  },
+  {
+    label: 'One command at a time per machine',
+    text: 'Two commands racing on the same computer is how you get results that do not match what happened.',
+  },
+]
+
+export const longJobs = {
+  title: 'Long jobs are different',
+  body: 'Installing updates takes an hour and restarts the machine partway. The program reporting back dies with the machine. So those are a separate kind of work: the agent reports progress as it goes — each report buys it more time — and it says in advance when it is about to restart the machine, so the server knows the silence is expected rather than a crash. Afterwards it picks up where it left off.',
+  note: 'Only that kind of work resumes. An ordinary script that was interrupted is never re-run automatically: nobody can know whether a half-finished script is safe to repeat, and only a person has the context to judge it.',
+}
+
+export const stack = [
+  { piece: 'Agent', builtWith: 'Rust', why: 'One small file, no runtime to install, low memory' },
+  {
+    piece: 'Backend',
+    builtWith: 'Rust, PostgreSQL',
+    why: 'Same reasons, plus a database that enforces the customer separation itself',
+  },
+  { piece: 'Dashboard', builtWith: 'Next.js', why: 'Ordinary web tooling' },
+]
+
+export const stackNote = 'Runs on one modest server today. Nothing here needs a cluster.'
+
+// --- Who it is for ----------------------------------------------------------
+
+export const audienceIntro =
+  'Somebody responsible for between ten and a few hundred Windows computers that they cannot walk over to.'
+
+export const audiences = [
+  {
+    name: 'The one-person IT department',
+    body: 'A company of forty people with one person who looks after everything. They are not short of tools — they are short of hours, and most of their day is spent finding out what is going on rather than fixing it.',
+  },
+  {
+    name: 'The small IT services firm',
+    body: 'Six or eight client companies, a few hundred machines between them. They already pay for something like this and it is either expensive, sold per-technician, or built for enterprises and hard to use.',
+  },
+  {
+    name: 'The company that just got asked a hard question',
+    body: 'An insurer, a client, or an auditor has asked whether their machines are patched and encrypted. They do not have an answer, and the honest one is “I think so”.',
+  },
+]
+
+export const buying = {
+  headline: 'The end of not knowing.',
+  intro: 'Not features. The specific relief is being able to answer, in under a minute:',
+  answers: [
+    'Are all our machines patched?',
+    'Is the antivirus actually on, everywhere?',
+    'Which machine is about to run out of disk?',
+    'Did that fix I applied last Tuesday actually work?',
+  ],
+  note: 'Every one of those is answerable today by walking to a machine or asking someone to check. The value is not that it becomes possible — it is that it becomes quick, and correct, and stays true tomorrow.',
+}
+
+export const savings = [
+  {
+    label: 'Time spent finding out',
+    text: 'Most small-IT work is investigation, not repair. A machine is slow; you remote in, you look at disk, you look at memory, you look at what is running. Twenty minutes before you touch anything. Here that is one page you already had open.',
+  },
+  {
+    label: 'Driving',
+    text: 'Restarting a stuck service on a machine in another building is a morning. Here it is a click, and the record of it is kept.',
+  },
+  {
+    label: 'The 2am discovery',
+    text: 'A disk fills up gradually and fails suddenly. Something watching it tells you on Tuesday, not at 2am on Saturday.',
+  },
+  {
+    label: 'Being caught out',
+    text: 'Not knowing a laptop had encryption switched off is only a problem on the day it is stolen. That is also the day it is too late.',
+  },
+]
+
+export const notFor = [
+  {
+    label: 'Very large companies',
+    text: 'Anyone with a thousand machines and a proper IT department already has Intune or SCCM, and their problem is not visibility.',
+  },
+  {
+    label: 'Anyone who needs Mac or Linux',
+    text: 'This is Windows only. That is not a limitation to apologise for — it is where the customers are — but it is a hard no for a mixed estate.',
+  },
+  {
+    label: 'Anyone wanting to remote-control a screen',
+    text: 'There is no screen sharing. It is a considered omission: it is a large piece of work with its own security model, and nothing else depends on it.',
+  },
+]
+
+export const firstCustomer =
+  'A small IT services firm with a handful of clients, run by somebody who has personally been embarrassed by a monitoring tool that lied to them. They will test it on one client, watch it for a month, and either trust it or not. That month is the product decision, and nothing in a sales conversation substitutes for it.'
+
+// --- What makes it different ------------------------------------------------
+
+export const rule = 'Not knowing something is different from knowing it is fine.'
+
+export const ruleProblem = {
+  intro:
+    'Ask a monitoring tool: does this machine have antivirus? Most will answer no in two completely different situations:',
+  cases: [
+    'The machine genuinely has no antivirus',
+    'The check failed — no permission, a service was down, the machine did not answer',
+  ],
+  outro:
+    'Those need opposite responses. The first sends you to fix a machine. The second sends you to fix your monitoring. A tool that reports them identically will, sooner or later, tell you a fleet is healthy when it has simply stopped looking.',
+}
+
+export const rulePractice = [
+  {
+    label: 'A collector that cannot read something says so',
+    text: 'It does not report zero. If the agent cannot check the firewall, the dashboard says “could not check”, not “firewall off”.',
+  },
+  {
+    label: 'A scan with a date attached',
+    text: 'Patch information is shown with when it was last checked. A machine that last looked for updates three weeks ago is not a machine with no updates pending — it is a machine that has stopped asking, which is a different and often worse problem.',
+  },
+  {
+    label: 'A schedule that ran and did nothing says so',
+    text: 'A machine can be busy, offline, or removed, and none of those produce a result. Every scheduled run records what happened to every machine, including the ones it skipped — so a nightly job quietly skipping the one machine that needed it is visible instead of invisible.',
+  },
+  {
+    label: '“Installed” and “installed, needs a restart” are different',
+    text: 'An update that needs a reboot has not taken effect. Reporting it as done would say a machine is patched while the hole is still open.',
+  },
+  {
+    label: 'An update the run never reached is not a failure',
+    text: 'If a patch job stops halfway, the ones it never got to are recorded as not attempted — not omitted, which would make them look out of scope, and not failed, which would accuse something that never ran.',
+  },
+  {
+    label: 'An empty list is never a silent success',
+    text: 'No local accounts on a Windows machine is impossible, so that is reported as a failed read, not as a machine with no accounts.',
+  },
+]
+
+export const ruleLayers = [
+  { layer: 'The agent', must: 'must distinguish “read it, found nothing” from “could not read”' },
+  { layer: 'The wire format', must: 'must be able to carry the difference' },
+  { layer: 'The database', must: 'must store absent as different from zero' },
+  {
+    layer: 'The dashboard',
+    must: 'must render “unknown” as unknown rather than as a dash that looks like a zero',
+  },
+]
+
+export const ruleLayersNote =
+  'Miss it in any one of those and the distinction is gone by the time it reaches a person. Which is why most tools do not have it — not because nobody thought of it, but because it has to be there from the beginning.'
+
+export const ruleLimitation = {
+  title: 'The honest limitation',
+  body: 'This makes the product more careful, not more capable. It does not do anything a mature competitor cannot. What it does is refuse to tell you something reassuring that it cannot support. For somebody who has been burned by that, it is the whole reason to switch. For somebody who has not, it will sound like a distinction without a difference — and no demo will change that. Only a month of use will.',
+}
+
+// --- Where it actually is ---------------------------------------------------
+// The site applies the product's own rule to itself: this says what is built,
+// what is not, and what is built but switched off. Keep it true.
+
+export const buildState = {
+  summary:
+    'Built, working, and running against a real machine. Nothing here is a prototype — it is a working product with three known gaps before it can be handed to a paying customer.',
+  done: [
+    'All five stages — inventory, health, alerting, remote action, security posture — complete',
+    'An installer: one command puts the agent on a machine',
+    'Patch management, verified by installing real updates on a real computer',
+  ],
+  gaps: [
+    {
+      label: 'Not code-signed',
+      text: 'Windows shows a warning when someone runs the installer.',
+    },
+    {
+      label: 'No download page',
+      text: 'The installer exists but is not hosted anywhere. A pilot is set up with us, by hand.',
+    },
+    {
+      label: 'Detection and response not started',
+      text: 'The sixth question. Deliberately last — detection built on unreliable information produces confident accusations about the wrong machines. Every question above has to be answered dependably first, or the sixth one generates alarms nobody can check and everyone learns to dismiss.',
+    },
+  ],
+  switchedOff: {
+    label: 'Deploying software',
+    text: 'Pushing an installer to a machine is built and tested, but hidden in the interface. With one computer it earns less attention than it costs. Two lines of code bring it back when there is a fleet to use it on.',
   },
 }
 
-// --- "How we help" (home page) -----------------------------------------------
-export const howWeHelp = [
-  { problem: 'Broken device?', answer: 'Repair or replace the affected part.' },
-  {
-    problem: 'Slow or unreliable business technology?',
-    answer: 'Improve computers, Wi-Fi, email, backups and workflows.',
-  },
-  {
-    problem: 'Concerned about data and cyber threats?',
-    answer: 'Secure accounts, devices, networks and backups.',
-  },
-  {
-    problem: 'Manual business processes?',
-    answer: 'Build a website, app, portal or automation system.',
-  },
+// --- Changelog areas (the public build log) ----------------------------------
+
+export const changelogAreas = [
+  { value: 'agent', label: 'Agent' },
+  { value: 'backend', label: 'Backend' },
+  { value: 'dashboard', label: 'Dashboard' },
+  { value: 'security', label: 'Security' },
+  { value: 'patching', label: 'Patching' },
+  { value: 'platform', label: 'Platform' },
 ]
 
-export const businessJourney = ['Repair', 'Support', 'Secure', 'Build', 'Automate']
+// --- Pilot-request form options ---------------------------------------------
 
-export const values = [
-  'Reliable',
-  'Clear',
-  'Secure',
-  'Practical',
-  'Professional',
-  'Future-focused',
+export const fleetSizeOptions = [
+  'Under 10 Windows machines',
+  '10–50 Windows machines',
+  '50–200 Windows machines',
+  'Over 200 Windows machines',
+  'Not sure yet',
 ]
 
-// --- Activity Log categories --------------------------------------------------
-export const activityCategories = [
-  { value: 'repair', label: 'Repairs' },
-  { value: 'it-support', label: 'IT Support Jobs' },
-  { value: 'security', label: 'Security Improvements' },
-  { value: 'software', label: 'Software Projects' },
-  { value: 'update', label: 'Business Updates' },
-]
-
-// --- Request-a-service options ------------------------------------------------
-export const serviceNeededOptions = [
-  'Phone repair',
-  'Laptop repair',
-  'IT support',
-  'Cybersecurity',
-  'Website / app / software',
+export const roleOptions = [
+  'I am the only IT person here',
+  'We are an IT services firm, looking after clients',
+  'We have been asked to prove machines are patched / encrypted',
+  'Evaluating on behalf of someone else',
   'Other',
 ]
 
-export const contactMethods = ['WhatsApp', 'Phone call', 'Email']
+export const contactMethods = ['Email', 'WhatsApp', 'Phone call']

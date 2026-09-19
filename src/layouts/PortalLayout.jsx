@@ -6,10 +6,9 @@ import { useAuth } from '../context/AuthContext'
 
 const navItems = [
   { to: '/portal', label: 'Dashboard', icon: 'dashboard', end: true },
-  { to: '/portal/requests', label: 'Service Requests', icon: 'mail' },
-  { to: '/portal/jobs', label: 'Repair Jobs', icon: 'list' },
-  { to: '/portal/activity/new', label: 'Add Activity', icon: 'plus' },
-  { to: '/portal/roadmap', label: 'Business Roadmap', icon: 'map' },
+  { to: '/portal/requests', label: 'Pilot Requests', icon: 'mail' },
+  { to: '/portal/changelog/new', label: 'Add Changelog Entry', icon: 'plus' },
+  { to: '/portal/roadmap', label: 'Build State', icon: 'map' },
 ]
 
 export default function PortalLayout() {

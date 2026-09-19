@@ -16,57 +16,59 @@ import {
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { db, storage, isFirebaseConfigured } from './firebase'
 
-/* ----------------------------- Activity Log ------------------------------ */
-// collection: activityLog
-//   { title, category, date, deviceType, problem, before, work, after,
-//     testing, status, customerVisibility, isPublic, imagesBefore[], imagesAfter[], createdAt }
+/* ------------------------------ Changelog -------------------------------- */
+// The public build log: what shipped in the platform, and when.
+//
+// The collection is still named `activityLog` — it was the repair-era activity
+// log, and renaming it would orphan anything already written. Only the meaning
+// and the fields changed.
+//
+// shape: { title, area, date, summary, detail, why, state, version,
+//          isPublic, images[], createdAt }
 
-const COL_ACTIVITY = 'activityLog'
+const COL_CHANGELOG = 'activityLog'
 
-export async function getPublicActivity({ category } = {}) {
+export async function getPublicChangelog({ area } = {}) {
   if (!isFirebaseConfigured) return []
-  const col = collection(db, COL_ACTIVITY)
+  const col = collection(db, COL_CHANGELOG)
   const clauses = [where('isPublic', '==', true)]
-  if (category) clauses.push(where('category', '==', category))
-  // Order by date desc. (Requires a composite index when filtering by category —
+  if (area) clauses.push(where('area', '==', area))
+  // Order by date desc. (Requires a composite index when filtering by area —
   // Firestore shows a one-click link to create it the first time.)
   const q = query(col, ...clauses, orderBy('date', 'desc'), limit(50))
   const snap = await getDocs(q)
   return snap.docs.map((d) => ({ id: d.id, ...d.data() }))
 }
 
-export async function getAllActivity() {
+export async function getAllChangelog() {
   if (!isFirebaseConfigured) return []
-  const q = query(collection(db, COL_ACTIVITY), orderBy('createdAt', 'desc'), limit(200))
+  const q = query(collection(db, COL_CHANGELOG), orderBy('createdAt', 'desc'), limit(200))
   const snap = await getDocs(q)
   return snap.docs.map((d) => ({ id: d.id, ...d.data() }))
 }
 
-export async function addActivity(data, { beforeFiles = [], afterFiles = [] } = {}) {
+export async function addChangelogEntry(data, { imageFiles = [] } = {}) {
   if (!isFirebaseConfigured) throw new Error('Firebase is not configured.')
-
-  const imagesBefore = await uploadImages(beforeFiles, 'activity/before')
-  const imagesAfter = await uploadImages(afterFiles, 'activity/after')
-
-  return addDoc(collection(db, COL_ACTIVITY), {
+  const images = await uploadImages(imageFiles, 'changelog')
+  return addDoc(collection(db, COL_CHANGELOG), {
     ...data,
-    imagesBefore,
-    imagesAfter,
+    images,
     createdAt: serverTimestamp(),
   })
 }
 
-/* --------------------------- Service Requests ---------------------------- */
+/* ---------------------------- Pilot requests ----------------------------- */
 // collection: requests (public can create; staff read)
+//
+// shape: { organisation, name, role, email, phone, fleetSize, currentTool,
+//          needToAnswer, preferredContact, consent, status, createdAt }
 
 const COL_REQUESTS = 'requests'
 
-export async function submitRequest(data, { photoFiles = [] } = {}) {
+export async function submitRequest(data) {
   if (!isFirebaseConfigured) throw new Error('Firebase is not configured.')
-  const photos = await uploadImages(photoFiles, 'requests')
   return addDoc(collection(db, COL_REQUESTS), {
     ...data,
-    photos,
     status: 'new',
     createdAt: serverTimestamp(),
   })
@@ -77,23 +79,6 @@ export async function getRequests() {
   const q = query(collection(db, COL_REQUESTS), orderBy('createdAt', 'desc'), limit(200))
   const snap = await getDocs(q)
   return snap.docs.map((d) => ({ id: d.id, ...d.data() }))
-}
-
-/* ------------------------------ Repair Jobs ------------------------------ */
-// collection: jobs (internal repair records — never public)
-
-const COL_JOBS = 'jobs'
-
-export async function getJobs() {
-  if (!isFirebaseConfigured) return []
-  const q = query(collection(db, COL_JOBS), orderBy('createdAt', 'desc'), limit(200))
-  const snap = await getDocs(q)
-  return snap.docs.map((d) => ({ id: d.id, ...d.data() }))
-}
-
-export async function addJob(data) {
-  if (!isFirebaseConfigured) throw new Error('Firebase is not configured.')
-  return addDoc(collection(db, COL_JOBS), { ...data, createdAt: serverTimestamp() })
 }
 
 /* -------------------------------- Helpers -------------------------------- */

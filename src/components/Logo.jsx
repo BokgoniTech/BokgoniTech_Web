@@ -12,8 +12,8 @@ export default function Logo({ to = '/', className = '' }) {
         <span className="text-base font-extrabold tracking-tight text-white">
           BOKGONI<span className="text-accent"> TECH</span>
         </span>
-        <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-brand-300">
-          Building efficient systems
+        <span className="text-[10px] font-medium uppercase tracking-[0.22em] text-brand-300">
+          Windows endpoint management
         </span>
       </span>
     </Link>

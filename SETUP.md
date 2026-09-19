@@ -5,7 +5,7 @@ It assumes no prior Firebase experience. Follow it top to bottom.
 
 > **Where you are now:** the whole website is built. It runs right now without
 > Firebase — you'll just see friendly "needs Firebase" notices on the parts that
-> store data (request form, activity log, portal). Connecting Firebase turns
+> store data (pilot form, changelog, portal). Connecting Firebase turns
 > those on.
 
 ---
@@ -137,15 +137,18 @@ To add more staff later, repeat this step. Use `role: staff` for non-admins.
 
 ## 6. Use it
 
-- **Public:** Home, About, Services (+ 5 detail pages), Activity Log, Request a
-  Service, Contact. The WhatsApp button and request form work once Firebase is on.
+- **Public:** Home, What it does, How it works, Who it's for, Why different,
+  Status, Changelog, Request a pilot, About, Contact. Only the changelog and the
+  pilot form need Firebase; every other page is static copy.
 - **Portal (`/portal`):**
-  - **Dashboard** — live counts of new requests and repair jobs.
-  - **Service Requests** — every form submission, with contact + photos.
-  - **Repair Jobs** — internal repair records (Job ID auto-generates as `BT-R-0001`).
-  - **Add Activity** — publish before/after repair entries to the public log
-    (toggle Public/Private). **Never put private identifiers in a public entry.**
-  - **Business Roadmap** — the Phase 1–5 internal operating manual.
+  - **Dashboard** — new pilot requests, stages built, known gaps.
+  - **Pilot Requests** — every form submission, with contact details.
+  - **Add Changelog Entry** — publish what shipped to the public changelog
+    (toggle Public/Private). **Screenshots are public — check them for customer
+    hostnames, usernames and IP addresses first.**
+  - **Build State** — the six build stages, their real state, and the three
+    known gaps. Keep it true; a roadmap that says "done" when it means "mostly"
+    is the failure this product exists to avoid.
 
 ---
 
@@ -168,13 +171,17 @@ follow the DNS instructions.
 
 | Collection    | Who can read              | Who can write            | Holds                          |
 | ------------- | ------------------------- | ------------------------ | ------------------------------ |
-| `activityLog` | public (if `isPublic`)    | staff                    | portfolio / before-after work  |
-| `requests`    | staff only                | **anyone can create**    | service enquiries from the form|
-| `jobs`        | staff only                | staff only               | internal repair records        |
+| `activityLog` | public (if `isPublic`)    | staff                    | the changelog                  |
+| `requests`    | staff only                | **anyone can create**    | pilot enquiries from the form  |
 | `staff`       | the user (their own doc)  | console only             | name + role per staff member   |
 
-Storage folders: `activity/before`, `activity/after` (public read), `requests/`
-(staff read only).
+`activityLog` holds the changelog. The collection name is left over from the
+repair-era activity log — renaming it would orphan anything already written, so
+only its meaning and fields changed (`category` → `area`, plus `summary`,
+`detail`, `why`, `version`, `state`).
+
+Storage folder: `changelog/` (public read, staff write). The old `activity/` and
+`requests/` folders are readable but closed to new writes.
 
 ---
 
@@ -184,7 +191,7 @@ Storage folders: `activity/before`, `activity/after` (public read), `requests/`
   or you didn't restart `npm run dev`.
 - **"Missing or insufficient permissions"** → you haven't deployed the rules (step 4),
   or your `staff/{uid}` document ID doesn't exactly match your Auth UID.
-- **Activity log filter shows nothing / console asks for an index** → Firestore needs
+- **Changelog filter shows nothing / console asks for an index** → Firestore needs
   a composite index. Either run `firebase deploy --only firestore:indexes` or click
   the one-click link in the browser console error.
 - **Can't log in** → confirm Email/Password is enabled in Authentication, and that a

@@ -2,9 +2,6 @@
 // Keeps the bundle small — no icon library dependency.
 
 const paths = {
-  wrench: (
-    <path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L4 16.8a2 2 0 1 0 2.8 2.8l5.3-5.3a4 4 0 0 0 5.2-5.4l-2.5 2.5-2.1-.4-.4-2.1 2.4-2.6Z" />
-  ),
   server: (
     <>
       <rect x="3" y="4" width="18" height="7" rx="1.5" />
@@ -13,9 +10,54 @@ const paths = {
     </>
   ),
   shield: <path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z" />,
-  code: <path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13 5l-2 14" />,
-  spark: (
-    <path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18" />
+  // The three pieces: agent on the machine, backend on the server, dashboard in
+  // the browser (`dashboard`, further down, is reused for the portal sidebar).
+  monitor: (
+    <>
+      <rect x="2.5" y="4" width="19" height="12" rx="1.5" />
+      <path d="M8 20h8M12 16v4" />
+    </>
+  ),
+  database: (
+    <>
+      <ellipse cx="12" cy="6" rx="8" ry="3" />
+      <path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6" />
+      <path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6" />
+    </>
+  ),
+  chart: <path d="M4 20V10M10 20V4M16 20v-7M22 20H2" />,
+  bell: (
+    <>
+      <path d="M18 15V10a6 6 0 1 0-12 0v5l-1.5 3h15L18 15Z" />
+      <path d="M10 21h4" />
+    </>
+  ),
+  bolt: <path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13l.5-8Z" />,
+  eye: (
+    <>
+      <path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z" />
+      <circle cx="12" cy="12" r="2.8" />
+    </>
+  ),
+  download: <path d="M12 3v11m0 0 4.5-4.5M12 14l-4.5-4.5M4 20h16" />,
+  question: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.7M12 17h.01" />
+    </>
+  ),
+  warn: (
+    <>
+      <path d="M12 3.5 21 19.5H3L12 3.5Z" />
+      <path d="M12 9.5v4.5M12 17h.01" />
+    </>
+  ),
+  minus: <path d="M6 12h12" />,
+  terminal: (
+    <>
+      <rect x="2.5" y="4" width="19" height="16" rx="2" />
+      <path d="M7 10l2.5 2.5L7 15M12.5 15H17" />
+    </>
   ),
   whatsapp: (
     <path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3Zm4.3 12.3c-.2.5-1 1-1.5 1-.4 0-.9.2-3-1s-3.4-3.6-3.6-3.8-.9-1.2-.9-2.3.6-1.6.8-1.8.4-.3.6-.3h.5c.2 0 .4 0 .6.5l.7 1.7c0 .2.1.4 0 .6l-.4.6-.3.3c-.1.1-.3.3-.1.6s.6 1 1.3 1.6c.9.8 1.6 1 1.9 1.2s.5.1.6 0l.7-.9c.2-.3.4-.2.6-.1l1.6.8c.2.1.4.2.5.3s.1.6-.1 1.1Z" />
@@ -68,8 +110,8 @@ const paths = {
 export default function Icon({ name, className = 'h-5 w-5', strokeWidth = 1.7 }) {
   const content = paths[name]
   if (!content) return null
-  // shield/whatsapp/arrow look better filled; most are stroked outlines.
-  const filled = name === 'shield' || name === 'whatsapp'
+  // shield/whatsapp/bolt look better filled; most are stroked outlines.
+  const filled = name === 'shield' || name === 'whatsapp' || name === 'bolt'
   return (
     <svg
       viewBox="0 0 24 24"

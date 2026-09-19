@@ -3,9 +3,9 @@ rules_version = '2';
 // ---------------------------------------------------------------------------
 // Bokgoni Tech — Firestore security rules
 // ---------------------------------------------------------------------------
-// Principle: the public can ONLY read published activity entries and SUBMIT
-// service requests. Everything internal (jobs, customer details, all request
-// reads, staff records) requires an authenticated staff account.
+// Principle: the public can ONLY read published changelog entries and SUBMIT
+// pilot requests. Everything internal (contact details, all request reads,
+// staff records) requires an authenticated staff account.
 // ---------------------------------------------------------------------------
 
 service cloud.firestore {
@@ -17,7 +17,9 @@ service cloud.firestore {
         && exists(/databases/$(database)/documents/staff/$(request.auth.uid));
     }
 
-    // ---- Activity Log -----------------------------------------------------
+    // ---- Changelog --------------------------------------------------------
+    // Still named `activityLog`: it was the repair-era activity log, and
+    // renaming the collection would orphan anything already written.
     // Public can read entries flagged isPublic == true.
     // Staff can read everything and write.
     match /activityLog/{docId} {
@@ -25,17 +27,12 @@ service cloud.firestore {
       allow create, update, delete: if isStaff();
     }
 
-    // ---- Service Requests -------------------------------------------------
-    // Anyone may CREATE a request (the public form). Only staff may read,
-    // update or delete them — protects customer contact details.
+    // ---- Pilot requests ---------------------------------------------------
+    // Anyone may CREATE a request (the public pilot form). Only staff may read,
+    // update or delete them — protects enquirer contact details.
     match /requests/{docId} {
       allow create: if true;
       allow read, update, delete: if isStaff();
-    }
-
-    // ---- Repair Jobs (internal only) -------------------------------------
-    match /jobs/{docId} {
-      allow read, write: if isStaff();
     }
 
     // ---- Staff records ----------------------------------------------------
