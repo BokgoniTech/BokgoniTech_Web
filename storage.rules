@@ -11,19 +11,26 @@ service firebase.storage {
       return request.auth != null;
     }
 
-    // Activity log images (before/after) — public can VIEW, only staff upload.
-    match /activity/{allPaths=**} {
+    // Changelog screenshots — public can VIEW, only staff upload.
+    match /changelog/{allPaths=**} {
       allow read: if true;
       allow write: if isStaff()
         && request.resource.size < 8 * 1024 * 1024
         && request.resource.contentType.matches('image/.*');
     }
 
-    // Request photos — anyone may UPLOAD (from the public form), only staff read.
+    // Repair-era activity images. Kept readable so existing published entries
+    // do not break; nothing writes here any more.
+    match /activity/{allPaths=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Repair-era request photos. The pilot form no longer uploads files, so
+    // this is staff-read only and closed to writes.
     match /requests/{allPaths=**} {
       allow read: if isStaff();
-      allow write: if request.resource.size < 8 * 1024 * 1024
-        && request.resource.contentType.matches('image/.*');
+      allow write: if false;
     }
 
     match /{allPaths=**} {

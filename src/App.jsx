@@ -1,15 +1,18 @@
 import { Suspense, lazy } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import ScrollToTop from './components/ScrollToTop'
 
 // Public layout + pages
 import PublicLayout from './layouts/PublicLayout'
 import Home from './pages/Home'
+import Product from './pages/Product'
+import HowItWorks from './pages/HowItWorks'
+import WhoItsFor from './pages/WhoItsFor'
+import WhyDifferent from './pages/WhyDifferent'
+import Status from './pages/Status'
+import Changelog from './pages/Changelog'
+import Pilot from './pages/Pilot'
 import About from './pages/About'
-import Services from './pages/Services'
-import ServiceDetail from './pages/ServiceDetail'
-import ActivityLog from './pages/ActivityLog'
-import RequestService from './pages/RequestService'
 import Contact from './pages/Contact'
 import NotFound from './pages/NotFound'
 
@@ -20,9 +23,8 @@ const PortalLayout = lazy(() => import('./layouts/PortalLayout'))
 const Login = lazy(() => import('./pages/portal/Login'))
 const Dashboard = lazy(() => import('./pages/portal/Dashboard'))
 const Roadmap = lazy(() => import('./pages/portal/Roadmap'))
-const PhaseDetail = lazy(() => import('./pages/portal/PhaseDetail'))
-const JobLogs = lazy(() => import('./pages/portal/JobLogs'))
-const AddActivity = lazy(() => import('./pages/portal/AddActivity'))
+const StageDetail = lazy(() => import('./pages/portal/StageDetail'))
+const AddChangelogEntry = lazy(() => import('./pages/portal/AddChangelogEntry'))
 const Requests = lazy(() => import('./pages/portal/Requests'))
 
 function PortalFallback() {
@@ -41,12 +43,22 @@ export default function App() {
         {/* Public site */}
         <Route element={<PublicLayout />}>
           <Route index element={<Home />} />
+          <Route path="product" element={<Product />} />
+          <Route path="how-it-works" element={<HowItWorks />} />
+          <Route path="who-its-for" element={<WhoItsFor />} />
+          <Route path="why-different" element={<WhyDifferent />} />
+          <Route path="status" element={<Status />} />
+          <Route path="changelog" element={<Changelog />} />
+          <Route path="pilot" element={<Pilot />} />
           <Route path="about" element={<About />} />
-          <Route path="services" element={<Services />} />
-          <Route path="services/:slug" element={<ServiceDetail />} />
-          <Route path="activity" element={<ActivityLog />} />
-          <Route path="request" element={<RequestService />} />
           <Route path="contact" element={<Contact />} />
+
+          {/* Retired routes from the services-business site. Kept as redirects
+              so existing links and search results do not land on a 404. */}
+          <Route path="services" element={<Navigate to="/product" replace />} />
+          <Route path="services/:slug" element={<Navigate to="/product" replace />} />
+          <Route path="request" element={<Navigate to="/pilot" replace />} />
+          <Route path="activity" element={<Navigate to="/changelog" replace />} />
         </Route>
 
         {/* Staff login (no portal chrome) */}
@@ -63,10 +75,13 @@ export default function App() {
         >
           <Route index element={<Dashboard />} />
           <Route path="roadmap" element={<Roadmap />} />
-          <Route path="roadmap/:slug" element={<PhaseDetail />} />
-          <Route path="jobs" element={<JobLogs />} />
+          <Route path="roadmap/:slug" element={<StageDetail />} />
           <Route path="requests" element={<Requests />} />
-          <Route path="activity/new" element={<AddActivity />} />
+          <Route path="changelog/new" element={<AddChangelogEntry />} />
+
+          {/* Retired portal routes (repair job logs, the old activity form). */}
+          <Route path="jobs" element={<Navigate to="/portal" replace />} />
+          <Route path="activity/new" element={<Navigate to="/portal/changelog/new" replace />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

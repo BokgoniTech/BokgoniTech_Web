@@ -5,6 +5,7 @@ import { contact, whatsappLink } from '../lib/siteConfig'
 
 export default function Contact() {
   const items = [
+    { icon: 'mail', label: 'Email', value: contact.email, href: `mailto:${contact.email}` },
     {
       icon: 'whatsapp',
       label: 'WhatsApp',
@@ -12,8 +13,12 @@ export default function Contact() {
       href: whatsappLink(),
       external: true,
     },
-    { icon: 'mail', label: 'Email', value: contact.email, href: `mailto:${contact.email}` },
-    { icon: 'phone', label: 'Phone', value: contact.phone, href: `tel:${contact.phone.replace(/\s/g, '')}` },
+    {
+      icon: 'phone',
+      label: 'Phone',
+      value: contact.phone,
+      href: `tel:${contact.phone.replace(/\s/g, '')}`,
+    },
     { icon: 'pin', label: 'Location', value: contact.location },
     { icon: 'clock', label: 'Hours', value: contact.hours },
   ]
@@ -23,7 +28,7 @@ export default function Contact() {
       <PageHeader
         eyebrow="Contact"
         title="Get in touch with Bokgoni Tech"
-        subtitle="Reach us the way that suits you. For repairs and quotes, the fastest route is WhatsApp or the request form."
+        subtitle="Reach us the way that suits you. If you want to actually try the platform, the pilot form tells us what we need to set it up."
       />
 
       <section className="section">
@@ -32,12 +37,12 @@ export default function Contact() {
             {items.map((item) => {
               const inner = (
                 <>
-                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-accent/10 text-accent">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-accent/10 text-accent">
                     <Icon name={item.icon} className="h-6 w-6" />
                   </span>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-xs uppercase tracking-wide text-brand-400">{item.label}</p>
-                    <p className="mt-0.5 font-medium text-white">{item.value}</p>
+                    <p className="mt-0.5 truncate font-medium text-white">{item.value}</p>
                   </div>
                 </>
               )
@@ -61,14 +66,18 @@ export default function Contact() {
           </div>
 
           <div className="card flex flex-col bg-gradient-to-br from-brand-800 to-brand-900">
-            <h2 className="text-2xl font-bold text-white">Ready to book?</h2>
+            <h2 className="text-2xl font-bold text-white">Want to try it?</h2>
             <p className="mt-3 text-brand-200">
-              The request form captures everything we need to give you a quick, accurate quote —
-              including optional photos of the problem.
+              There is no self-service signup — the installer is built but not hosted anywhere yet,
+              so every pilot is set up by hand. The form captures what we need to do that: how many
+              Windows machines, what you use today, and what question you need answered.
             </p>
-            <div className="mt-auto pt-6">
-              <Link to="/request" className="btn-primary w-full sm:w-auto">
-                Request a Service <Icon name="arrow" className="h-4 w-4" />
+            <div className="mt-auto flex flex-wrap gap-3 pt-6">
+              <Link to="/pilot" className="btn-primary">
+                Request a pilot <Icon name="arrow" className="h-4 w-4" />
+              </Link>
+              <Link to="/status" className="btn-secondary">
+                Where the product is
               </Link>
             </div>
           </div>

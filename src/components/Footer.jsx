@@ -1,7 +1,23 @@
 import { Link } from 'react-router-dom'
 import Logo from './Logo'
 import Icon from './Icon'
-import { contact, whatsappLink, services } from '../lib/siteConfig'
+import { contact, whatsappLink, product } from '../lib/siteConfig'
+
+const productLinks = [
+  { to: '/product', label: 'What it does' },
+  { to: '/how-it-works', label: 'How it works' },
+  { to: '/who-its-for', label: "Who it's for" },
+  { to: '/why-different', label: 'What makes it different' },
+  { to: '/status', label: 'Where it actually is' },
+  { to: '/changelog', label: 'Changelog' },
+]
+
+const companyLinks = [
+  { to: '/about', label: 'About' },
+  { to: '/contact', label: 'Contact' },
+  { to: '/pilot', label: 'Request a pilot' },
+  { to: '/portal/login', label: 'Staff login' },
+]
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -10,19 +26,19 @@ export default function Footer() {
       <div className="container-bt grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
         <div className="sm:col-span-2 lg:col-span-1">
           <Logo />
-          <p className="mt-4 max-w-xs text-sm text-brand-300">
-            We repair, support, secure and build technology that helps people and businesses
-            operate better.
+          <p className="mt-4 max-w-xs text-sm text-brand-300">{product.oneLiner}</p>
+          <p className="mt-3 inline-flex items-center gap-1.5 text-xs text-brand-400">
+            <Icon name="monitor" className="h-3.5 w-3.5" /> {product.platform}
           </p>
         </div>
 
         <div>
-          <h4 className="mb-3 text-sm font-semibold text-white">Services</h4>
+          <h4 className="mb-3 text-sm font-semibold text-white">The product</h4>
           <ul className="space-y-2 text-sm">
-            {services.map((s) => (
-              <li key={s.slug}>
-                <Link to={`/services/${s.slug}`} className="text-brand-300 hover:text-accent">
-                  {s.name}
+            {productLinks.map((l) => (
+              <li key={l.to}>
+                <Link to={l.to} className="text-brand-300 hover:text-accent">
+                  {l.label}
                 </Link>
               </li>
             ))}
@@ -32,11 +48,13 @@ export default function Footer() {
         <div>
           <h4 className="mb-3 text-sm font-semibold text-white">Company</h4>
           <ul className="space-y-2 text-sm">
-            <li><Link to="/about" className="text-brand-300 hover:text-accent">About</Link></li>
-            <li><Link to="/activity" className="text-brand-300 hover:text-accent">Activity Log</Link></li>
-            <li><Link to="/request" className="text-brand-300 hover:text-accent">Request a Service</Link></li>
-            <li><Link to="/contact" className="text-brand-300 hover:text-accent">Contact</Link></li>
-            <li><Link to="/portal/login" className="text-brand-300 hover:text-accent">Staff Login</Link></li>
+            {companyLinks.map((l) => (
+              <li key={l.to}>
+                <Link to={l.to} className="text-brand-300 hover:text-accent">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -66,7 +84,7 @@ export default function Footer() {
       <div className="border-t border-brand-800/70">
         <div className="container-bt flex flex-col items-center justify-between gap-2 py-5 text-xs text-brand-400 sm:flex-row">
           <p>© {year} Bokgoni Tech. All rights reserved.</p>
-          <p>Repair · Support · Secure · Build · Automate</p>
+          <p>Inventory · Health · Alerting · Action · Posture</p>
         </div>
       </div>
     </footer>
