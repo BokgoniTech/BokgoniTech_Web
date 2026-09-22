@@ -21,12 +21,11 @@ API — it has no access to any customer's fleet data.
 
 | Route | What it is |
 | --- | --- |
-| `/` | The product: the five questions it answers, the three pieces, the design rule, honest status |
+| `/` | The product: what a client gets, the five questions, the three pieces, the design rule |
 | `/product` | What it does, capability by capability |
 | `/how-it-works` | The three pieces, how a command travels, why long jobs are different, the stack |
 | `/who-its-for` | The customer, what they are buying, and who it is **not** for |
 | `/why-different` | The one design rule — "not knowing something is different from knowing it is fine" |
-| `/status` | What is built, what is not, and the three known gaps |
 | `/changelog` | Published record of what shipped |
 | `/pilot` | Request a pilot (there is no self-service signup — see below) |
 | `/about`, `/contact` | Company and contact details |
@@ -51,14 +50,21 @@ Both are derived from the product docs in
 **`BokgoniTech_Agent/docs/product/`**. That is the source of truth. If a claim
 changes there, change it in `siteConfig.js` — not in a page component.
 
-### One rule this site has to follow too
+### Build state is internal
 
-The product refuses to report "fine" when it means "could not check". The site
-applies the same standard to itself:
+There used to be a public `/status` page listing what was built, what was not,
+and the three known gaps. It is gone, and `/status` now redirects to `/product`.
 
-- `/status` states the three gaps plainly rather than burying them.
-- Build state is rendered by `components/StateBadge.jsx`, so "not started" never
-  degrades into a dash that reads like a zero.
+The information still exists and is still kept true — in **`src/lib/stages.js`**,
+behind the staff portal at `/portal/roadmap`, which is where a roadmap belongs.
+A visitor deciding whether to talk to us needs to know what the product does for
+them, not which capability landed in which sprint.
+
+What survives into the public site is the *discipline*, stated as a benefit
+rather than as a confession:
+
+- `/why-different` explains that a check that passed and a check that never ran
+  are different facts, and why that is worth having.
 - An empty changelog says *nothing has been published* — not *nothing has been
   built*.
 - The site never offers a download, because there is no hosted installer. It

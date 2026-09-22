@@ -8,7 +8,6 @@ const productLinks = [
   { to: '/how-it-works', label: 'How it works' },
   { to: '/who-its-for', label: "Who it's for" },
   { to: '/why-different', label: 'What makes it different' },
-  { to: '/status', label: 'Where it actually is' },
   { to: '/changelog', label: 'Changelog' },
 ]
 

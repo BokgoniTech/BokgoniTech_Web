@@ -9,7 +9,6 @@ const links = [
   { to: '/how-it-works', label: 'How it works' },
   { to: '/who-its-for', label: "Who it's for" },
   { to: '/why-different', label: 'Why different' },
-  { to: '/status', label: 'Status' },
 ]
 
 export default function Navbar() {

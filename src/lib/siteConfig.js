@@ -29,9 +29,15 @@ export const product = {
   platform: 'Windows only',
 }
 
-// --- The five questions it answers (plus the sixth, not built) ---------------
+// --- The five questions it answers -------------------------------------------
 // Each builds on the last: a tool that answers the fifth without the first is
 // guessing.
+//
+// Build state deliberately does not appear here any more. What is finished,
+// what is not, and what is deliberately deferred is real and is still tracked —
+// in `stages.js`, behind the staff portal, which is where a roadmap belongs. A
+// visitor deciding whether to talk to us needs to know what the product does
+// for them, not which sprint a capability landed in.
 
 export const questions = [
   {
@@ -39,42 +45,75 @@ export const questions = [
     icon: 'list',
     question: 'What computers do I have?',
     answer: 'Every machine, what it is, what is on it',
-    state: 'built',
   },
   {
     slug: 'health',
     icon: 'chart',
     question: 'How are they doing?',
     answer: 'Disk, memory, processor, network — now and over time',
-    state: 'built',
   },
   {
     slug: 'alerting',
     icon: 'bell',
     question: 'What needs my attention?',
     answer: 'Alerts when something crosses a line you set',
-    state: 'built',
   },
   {
     slug: 'action',
     icon: 'bolt',
     question: 'Can I fix it from here?',
     answer: 'Run a script, restart a service, restart the machine',
-    state: 'built',
   },
   {
     slug: 'posture',
     icon: 'shield',
     question: 'Are they protected?',
     answer: 'Antivirus, firewall, encryption, updates, who can sign in',
-    state: 'built',
+  },
+]
+
+// --- What a client actually gets ---------------------------------------------
+// The home page's second half. Outcomes rather than capabilities: the
+// capability list lives on /product, and a visitor who has not decided they
+// have the problem yet will not read it.
+
+export const outcomes = [
+  {
+    icon: 'question',
+    title: 'Answers in under a minute',
+    body: 'Are all our machines patched? Is antivirus actually on, everywhere? Which machine is about to run out of disk? One page, not an afternoon of remoting in.',
   },
   {
-    slug: 'detection',
-    icon: 'eye',
-    question: 'Is something malicious happening?',
-    answer: 'Detection and response — deliberately last, and not built',
-    state: 'not-started',
+    icon: 'bell',
+    title: 'You hear about it on Tuesday',
+    body: 'A disk fills up gradually and fails suddenly. Thresholds you set, alerts that wait before shouting and tell you when they clear — so the problem is dealt with in working hours.',
+  },
+  {
+    icon: 'bolt',
+    title: 'Fixes without the drive',
+    body: 'Restart a service, run a saved script, install the updates, reboot the machine — from where you are, on one machine or a group, with a record of who did what.',
+  },
+  {
+    icon: 'shield',
+    title: 'The compliance answer, evidenced',
+    body: 'When an insurer or a client asks whether every laptop is encrypted and patched, you answer from the dashboard instead of from memory.',
+  },
+]
+
+// --- What working with us looks like -----------------------------------------
+
+export const engagement = [
+  {
+    step: 'We set it up with you',
+    body: 'One command puts the agent on a machine, and we do the first ones alongside you. Nothing to rack, nothing to learn before it starts reporting.',
+  },
+  {
+    step: 'You watch a real fleet for a month',
+    body: 'On one client, or one office. Long enough to see it catch something, which is the only demonstration that settles anything.',
+  },
+  {
+    step: 'We stay reachable',
+    body: 'We build the platform ourselves, so a question about why a machine reported something odd reaches the people who wrote the collector.',
   },
 ]
 
@@ -324,8 +363,12 @@ export const notFor = [
   },
 ]
 
-export const firstCustomer =
-  'A small IT services firm with a handful of clients, run by somebody who has personally been embarrassed by a monitoring tool that lied to them. They will test it on one client, watch it for a month, and either trust it or not. That month is the product decision, and nothing in a sales conversation substitutes for it.'
+// Qualification, kept deliberately. "Who it is not for" is not self-deprecation
+// — it is the fastest way for the right customer to recognise themselves, and
+// it saves everybody a month finding out.
+
+export const bestFit =
+  'A small IT services firm looking after a few hundred Windows machines across a handful of clients, or the one person responsible for everything at a company of forty. If that is you, a month on one client will tell you more than any demo.'
 
 // --- What makes it different ------------------------------------------------
 
@@ -382,41 +425,11 @@ export const ruleLayers = [
 export const ruleLayersNote =
   'Miss it in any one of those and the distinction is gone by the time it reaches a person. Which is why most tools do not have it — not because nobody thought of it, but because it has to be there from the beginning.'
 
-export const ruleLimitation = {
-  title: 'The honest limitation',
-  body: 'This makes the product more careful, not more capable. It does not do anything a mature competitor cannot. What it does is refuse to tell you something reassuring that it cannot support. For somebody who has been burned by that, it is the whole reason to switch. For somebody who has not, it will sound like a distinction without a difference — and no demo will change that. Only a month of use will.',
-}
-
-// --- Where it actually is ---------------------------------------------------
-// The site applies the product's own rule to itself: this says what is built,
-// what is not, and what is built but switched off. Keep it true.
-
-export const buildState = {
-  summary:
-    'Built, working, and running against a real machine. Nothing here is a prototype — it is a working product with three known gaps before it can be handed to a paying customer.',
-  done: [
-    'All five stages — inventory, health, alerting, remote action, security posture — complete',
-    'An installer: one command puts the agent on a machine',
-    'Patch management, verified by installing real updates on a real computer',
-  ],
-  gaps: [
-    {
-      label: 'Not code-signed',
-      text: 'Windows shows a warning when someone runs the installer.',
-    },
-    {
-      label: 'No download page',
-      text: 'The installer exists but is not hosted anywhere. A pilot is set up with us, by hand.',
-    },
-    {
-      label: 'Detection and response not started',
-      text: 'The sixth question. Deliberately last — detection built on unreliable information produces confident accusations about the wrong machines. Every question above has to be answered dependably first, or the sixth one generates alarms nobody can check and everyone learns to dismiss.',
-    },
-  ],
-  switchedOff: {
-    label: 'Deploying software',
-    text: 'Pushing an installer to a machine is built and tested, but hidden in the interface. With one computer it earns less attention than it costs. Two lines of code bring it back when there is a fleet to use it on.',
-  },
+// The rule, stated as the benefit it buys rather than as a confession about
+// what the product is not. Same claim, written for somebody choosing a tool.
+export const rulePayoff = {
+  title: 'What that is worth to you',
+  body: 'You can act on what the dashboard says. A green tick means a check ran and passed, not that a check was attempted. When something could not be read you are told, so the one machine that quietly stopped reporting shows up as a machine to look at rather than disappearing into a healthy-looking fleet.',
 }
 
 // --- Changelog areas (the public build log) ----------------------------------

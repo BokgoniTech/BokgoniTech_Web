@@ -68,16 +68,17 @@ export default function Contact() {
           <div className="card flex flex-col bg-gradient-to-br from-brand-800 to-brand-900">
             <h2 className="text-2xl font-bold text-white">Want to try it?</h2>
             <p className="mt-3 text-brand-200">
-              There is no self-service signup — the installer is built but not hosted anywhere yet,
-              so every pilot is set up by hand. The form captures what we need to do that: how many
-              Windows machines, what you use today, and what question you need answered.
+              Pilots are set up with you rather than through a signup form, so you get a
+              conversation instead of a trial that expires while you are busy. The form captures
+              what we need: how many Windows machines, what you use today, and what question you
+              need answered.
             </p>
             <div className="mt-auto flex flex-wrap gap-3 pt-6">
               <Link to="/pilot" className="btn-primary">
                 Request a pilot <Icon name="arrow" className="h-4 w-4" />
               </Link>
-              <Link to="/status" className="btn-secondary">
-                Where the product is
+              <Link to="/product" className="btn-secondary">
+                What it does
               </Link>
             </div>
           </div>
