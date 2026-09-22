@@ -7,7 +7,7 @@ import {
   buying,
   savings,
   notFor,
-  firstCustomer,
+  bestFit,
 } from '../lib/siteConfig'
 
 export default function WhoItsFor() {
@@ -104,19 +104,19 @@ export default function WhoItsFor() {
       <section className="section border-t border-brand-800/70">
         <div className="container-bt grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-6">
-            <p className="eyebrow mb-3">Why anyone would choose this over what exists</p>
+            <p className="eyebrow mb-3">Why this one</p>
             <h2 className="text-3xl font-bold text-white">
-              Honest answer: for most people, they would not, yet.
+              Because you can act on what it tells you.
             </h2>
             <p className="mt-4 text-brand-300">
-              The category is crowded and the incumbents are mature. What is genuinely different is
-              not a feature — it is that this tool is careful about telling you things it does not
-              know.
+              The category is crowded and most of the tools in it do roughly the same things. What
+              is different here is not a feature list — it is that this one is careful about the
+              difference between a check that passed and a check that never ran.
             </p>
             <p className="mt-4 text-brand-300">
-              Whether that is worth switching for depends on whether somebody has been burned by the
-              alternative. People who have will understand immediately. People who have not will
-              hear a distinction without a difference — and they are not the first customer.
+              Anyone who has been told a fleet was healthy by a tool that had simply stopped looking
+              will recognise why that matters. It is the difference between a dashboard you act on
+              and one you verify by hand before you trust it.
             </p>
             <Link to="/why-different" className="btn-secondary mt-6">
               What makes it different <Icon name="arrow" className="h-4 w-4" />
@@ -125,8 +125,8 @@ export default function WhoItsFor() {
 
           <div className="lg:col-span-6">
             <div className="card h-full bg-gradient-to-br from-brand-800 to-brand-900">
-              <p className="eyebrow mb-3">The realistic first customer</p>
-              <p className="text-brand-100">{firstCustomer}</p>
+              <p className="eyebrow mb-3">Where it fits best</p>
+              <p className="text-brand-100">{bestFit}</p>
               <Link to="/pilot" className="btn-primary mt-6 w-full sm:w-auto">
                 Request a pilot <Icon name="arrow" className="h-4 w-4" />
               </Link>

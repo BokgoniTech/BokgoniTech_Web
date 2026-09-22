@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import Icon from '../components/Icon'
-import StateBadge from '../components/StateBadge'
-import { product, questions, pieces, rule, buildState } from '../lib/siteConfig'
+import { product, questions, pieces, outcomes, engagement, rule } from '../lib/siteConfig'
 
 export default function Home() {
   return (
@@ -20,7 +19,6 @@ export default function Home() {
             </h1>
             <p className="mt-6 max-w-xl text-lg text-brand-200">{product.oneLiner}</p>
             <p className="mt-4 max-w-xl text-brand-300">{product.summary}</p>
-            <p className="mt-4 max-w-xl text-brand-400">That is the whole idea. Everything else is detail.</p>
 
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/pilot" className="btn-primary">
@@ -30,14 +28,6 @@ export default function Home() {
                 What it does
               </Link>
             </div>
-
-            <p className="mt-6 text-sm text-brand-400">
-              Not a prototype — and not finished either.{' '}
-              <Link to="/status" className="text-accent hover:underline">
-                Here is exactly where it is
-              </Link>
-              .
-            </p>
           </div>
 
           {/* The three pieces, as a diagram you can read in one pass. */}
@@ -79,8 +69,36 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ------------------------- The five questions ----------------------- */}
+      {/* ---------------------------- What you get -------------------------- */}
       <section className="section border-t border-brand-800/70">
+        <div className="container-bt">
+          <div className="mb-10 max-w-2xl">
+            <p className="eyebrow mb-3">What you get</p>
+            <h2 className="text-3xl font-bold text-white">
+              The end of not knowing.
+            </h2>
+            <p className="mt-3 text-brand-300">
+              Everything below is answerable today by walking to a machine or asking someone to
+              check. The value is that it becomes quick, and correct, and stays true tomorrow.
+            </p>
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2">
+            {outcomes.map((o) => (
+              <div key={o.title} className="card">
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-accent/10 text-accent">
+                  <Icon name={o.icon} className="h-6 w-6" />
+                </span>
+                <h3 className="mt-4 text-lg font-semibold text-white">{o.title}</h3>
+                <p className="mt-2 text-sm text-brand-300">{o.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ------------------------- The five questions ----------------------- */}
+      <section className="section border-t border-brand-800/70 bg-brand-900/30">
         <div className="container-bt">
           <div className="mb-10 max-w-2xl">
             <p className="eyebrow mb-3">What it answers</p>
@@ -95,110 +113,66 @@ export default function Home() {
             {questions.map((q, i) => (
               <div
                 key={q.slug}
-                className={`flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:gap-5 ${
+                className={`flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:gap-5 hover:bg-brand-900/40 ${
                   i > 0 ? 'border-t border-brand-800' : ''
-                } ${q.state === 'not-started' ? 'bg-brand-950/60' : 'hover:bg-brand-900/40'}`}
+                }`}
               >
-                <span
-                  className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl ${
-                    q.state === 'not-started'
-                      ? 'bg-brand-800/60 text-brand-400'
-                      : 'bg-accent/10 text-accent'
-                  }`}
-                >
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-accent/10 text-accent">
                   <Icon name={q.icon} className="h-5 w-5" />
                 </span>
-                <p
-                  className={`min-w-0 flex-1 font-semibold ${
-                    q.state === 'not-started' ? 'text-brand-300' : 'text-white'
-                  }`}
-                >
-                  {q.question}
-                </p>
+                <p className="min-w-0 flex-1 font-semibold text-white">{q.question}</p>
                 <p className="min-w-0 flex-1 text-sm text-brand-300">{q.answer}</p>
-                <StateBadge state={q.state} className="shrink-0 self-start sm:self-center" />
               </div>
             ))}
           </div>
 
-          <p className="mt-5 max-w-3xl text-sm text-brand-400">
-            The sixth is deliberately last, and{' '}
-            <Link to="/status" className="text-accent hover:underline">
-              why that matters
-            </Link>{' '}
-            is part of the pitch, not a caveat buried in it.
-          </p>
+          <div className="mt-6">
+            <Link to="/product" className="btn-secondary">
+              What it does, in detail <Icon name="arrow" className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* ----------------------------- The rule ----------------------------- */}
-      <section className="section border-t border-brand-800/70 bg-brand-900/30">
+      <section className="section border-t border-brand-800/70">
         <div className="container-bt">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="eyebrow mb-4">The one design rule</p>
+            <p className="eyebrow mb-4">Why this one</p>
             <blockquote className="text-2xl font-bold leading-snug text-white sm:text-3xl">
               “{rule}”
             </blockquote>
             <p className="mt-6 text-brand-300">
-              That sounds obvious. Almost no monitoring tool actually does it, and the gap is where
-              the failures live. Ask most tools whether a machine has antivirus and they will answer{' '}
+              Ask most monitoring tools whether a machine has antivirus and they answer{' '}
               <span className="font-semibold text-white">no</span> both when it has none and when
-              the check simply failed. Those need opposite responses.
+              the check simply failed. Those need opposite responses. This one keeps them apart, at
+              every layer — so what the dashboard tells you is something you can act on.
             </p>
-            <Link
-              to="/why-different"
-              className="btn-secondary mt-8"
-            >
+            <Link to="/why-different" className="btn-secondary mt-8">
               What that looks like in practice <Icon name="arrow" className="h-4 w-4" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* --------------------------- Honest status -------------------------- */}
-      <section className="section border-t border-brand-800/70">
-        <div className="container-bt grid gap-8 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <p className="eyebrow mb-3">Where it actually is</p>
-            <h2 className="text-3xl font-bold text-white">
-              Working product. Three known gaps.
-            </h2>
-            <p className="mt-4 text-brand-300">{buildState.summary}</p>
-            <Link to="/status" className="btn-secondary mt-6">
-              The full status <Icon name="arrow" className="h-4 w-4" />
-            </Link>
+      {/* ------------------------- Working with us -------------------------- */}
+      <section className="section border-t border-brand-800/70 bg-brand-900/30">
+        <div className="container-bt">
+          <div className="mb-10 max-w-2xl">
+            <p className="eyebrow mb-3">Working with us</p>
+            <h2 className="text-3xl font-bold text-white">How it starts.</h2>
           </div>
 
-          <div className="grid gap-4 lg:col-span-7 lg:grid-cols-2">
-            <div className="card">
-              <p className="mb-3 inline-flex items-center gap-2 text-sm font-semibold text-green-200">
-                <Icon name="check" className="h-4 w-4" /> Built and running
-              </p>
-              <ul className="space-y-2.5 text-sm text-brand-300">
-                {buildState.done.map((d) => (
-                  <li key={d} className="flex gap-2">
-                    <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-green-400/70" />
-                    {d}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="card border-amber-500/30">
-              <p className="mb-3 inline-flex items-center gap-2 text-sm font-semibold text-amber-200">
-                <Icon name="warn" className="h-4 w-4" /> Not done
-              </p>
-              <ul className="space-y-2.5 text-sm text-brand-300">
-                {buildState.gaps.map((g) => (
-                  <li key={g.label} className="flex gap-2">
-                    <Icon name="minus" className="mt-0.5 h-4 w-4 shrink-0 text-amber-400/70" />
-                    <span>
-                      <span className="font-medium text-brand-100">{g.label}.</span>{' '}
-                      {g.text}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="grid gap-5 lg:grid-cols-3">
+            {engagement.map((e, i) => (
+              <div key={e.step} className="card">
+                <span className="grid h-8 w-8 place-items-center rounded-full bg-accent/15 text-sm font-bold text-accent">
+                  {i + 1}
+                </span>
+                <h3 className="mt-4 text-lg font-semibold text-white">{e.step}</h3>
+                <p className="mt-2 text-sm text-brand-300">{e.body}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -209,8 +183,8 @@ export default function Home() {
           <div className="card relative overflow-hidden bg-gradient-to-br from-brand-800 to-brand-900 text-center">
             <h2 className="text-3xl font-bold text-white">Try it on one client.</h2>
             <p className="mx-auto mt-3 max-w-xl text-brand-200">
-              There is no self-service signup yet — the installer is not hosted. A pilot is set up
-              with us by hand, which means you get a conversation rather than a trial that expires.
+              We set the pilot up with you and you watch a real fleet for a month. That is the
+              demonstration that settles it.
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <Link to="/pilot" className="btn-primary">

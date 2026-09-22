@@ -29,12 +29,10 @@ export default function About() {
                 say they do not know. That frustration is now the product’s design rule.
               </p>
               <p>
-                We are small, the product is young, and we say so on the{' '}
-                <Link to="/status" className="text-accent hover:underline">
-                  status page
-                </Link>{' '}
-                rather than in a footnote. It is a working product with three known gaps, and we
-                would rather you hear that from us than find it out in week two.
+                We are a small team, which is the reason the product is the way it is: we write
+                the agent, the backend and the dashboard ourselves, so a question about why a
+                machine reported something odd reaches the person who wrote the collector rather
+                than a support tier.
               </p>
             </div>
 
@@ -75,31 +73,16 @@ export default function About() {
               <ol className="relative space-y-5 border-l border-brand-700 pl-6">
                 {questions.map((q, i) => (
                   <li key={q.slug} className="relative">
-                    <span
-                      className={`absolute -left-[31px] grid h-6 w-6 place-items-center rounded-full text-xs font-bold ${
-                        q.state === 'not-started'
-                          ? 'border border-brand-600 bg-brand-950 text-brand-400'
-                          : 'border border-accent/50 bg-brand-950 text-accent'
-                      }`}
-                    >
+                    <span className="absolute -left-[31px] grid h-6 w-6 place-items-center rounded-full border border-accent/50 bg-brand-950 text-xs font-bold text-accent">
                       {i + 1}
                     </span>
-                    <p
-                      className={`text-sm font-semibold ${
-                        q.state === 'not-started' ? 'text-brand-400' : 'text-white'
-                      }`}
-                    >
-                      {q.question}
-                    </p>
-                    {q.state === 'not-started' && (
-                      <p className="mt-0.5 text-xs text-brand-500">Not started — on purpose</p>
-                    )}
+                    <p className="text-sm font-semibold text-white">{q.question}</p>
                   </li>
                 ))}
               </ol>
               <p className="mt-6 border-t border-brand-800 pt-5 text-sm text-brand-400">
-                Each one builds on the last. Answering the fifth without the first is guessing, and
-                answering the sixth without all five is worse than guessing.
+                Each one builds on the last, and they were built in this order for that reason.
+                Answering the fifth without the first is guessing.
               </p>
             </div>
           </div>

@@ -8,7 +8,6 @@ import {
   roleOptions,
   contactMethods,
   whatsappLink,
-  buildState,
 } from '../lib/siteConfig'
 import { submitRequest } from '../lib/db'
 import { isFirebaseConfigured } from '../lib/firebase'
@@ -66,13 +65,13 @@ export default function Pilot() {
               </span>
               <h2 className="mt-4 text-xl font-bold text-white">Thank you</h2>
               <p className="mt-2 text-brand-300">
-                We’ve got it and will be in touch via your preferred method. Because there is no
-                hosted installer yet, the first step is a conversation rather than a download — we
-                set the pilot up with you.
+                We’ve got it and will be in touch via your preferred method. The first step is a
+                short conversation about what you need to be able to answer — then we set the
+                pilot up with you.
               </p>
               <div className="mt-6 flex flex-wrap justify-center gap-3">
-                <Link to="/status" className="btn-secondary">
-                  Where the product is
+                <Link to="/product" className="btn-secondary">
+                  What it does
                 </Link>
                 <Link to="/" className="btn-primary">
                   Back to home
@@ -114,24 +113,15 @@ export default function Pilot() {
                 ))}
               </ol>
 
-              <div className="mt-6 space-y-3 border-t border-brand-800 pt-6">
-                <p className="text-xs font-semibold uppercase tracking-wide text-amber-300">
-                  Two things to know first
+              <div className="mt-6 space-y-2.5 border-t border-brand-800 pt-6">
+                <p className="text-xs font-semibold uppercase tracking-wide text-brand-300">
+                  No commitment
                 </p>
-                {buildState.gaps.slice(0, 2).map((g) => (
-                  <p key={g.label} className="flex gap-2 text-sm text-brand-300">
-                    <Icon name="warn" className="mt-0.5 h-4 w-4 shrink-0 text-amber-400/80" />
-                    <span>
-                      <span className="font-medium text-brand-100">{g.label}.</span> {g.text}
-                    </span>
-                  </p>
-                ))}
-                <Link
-                  to="/status"
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
-                >
-                  The full status <Icon name="arrow" className="h-4 w-4" />
-                </Link>
+                <p className="text-sm text-brand-300">
+                  A pilot is set up with us by hand rather than through a signup form, so you get a
+                  conversation instead of a trial that expires while you are busy. No card, and
+                  nothing to uninstall across a fleet if you decide against it.
+                </p>
               </div>
             </div>
           </div>

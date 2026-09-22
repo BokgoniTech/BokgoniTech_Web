@@ -7,7 +7,7 @@ import {
   rulePractice,
   ruleLayers,
   ruleLayersNote,
-  ruleLimitation,
+  rulePayoff,
 } from '../lib/siteConfig'
 
 export default function WhyDifferent() {
@@ -121,21 +121,22 @@ export default function WhyDifferent() {
         </div>
       </section>
 
-      {/* ------------------------ The honest limitation ---------------------- */}
+      {/* --------------------------- What it buys ---------------------------- */}
       <section className="section border-t border-brand-800/70">
         <div className="container-bt">
-          <div className="card mx-auto max-w-3xl border-amber-500/30">
-            <p className="eyebrow mb-3 text-amber-300">{ruleLimitation.title}</p>
-            <p className="text-brand-200">{ruleLimitation.body}</p>
+          <div className="card mx-auto max-w-3xl border-l-2 border-l-accent">
+            <p className="eyebrow mb-3">{rulePayoff.title}</p>
+            <p className="text-brand-200">{rulePayoff.body}</p>
           </div>
 
           <div className="card mt-10 flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
             <p className="text-brand-200">
-              A month of use is the only thing that settles it. That is what a pilot is for.
+              A month on a real fleet is the only thing that settles it. That is what a pilot is
+              for.
             </p>
             <div className="flex shrink-0 gap-3">
-              <Link to="/status" className="btn-secondary">
-                Where it actually is
+              <Link to="/who-its-for" className="btn-secondary">
+                Who it&apos;s for
               </Link>
               <Link to="/pilot" className="btn-primary">
                 Request a pilot

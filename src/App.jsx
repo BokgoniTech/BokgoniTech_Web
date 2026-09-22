@@ -9,7 +9,6 @@ import Product from './pages/Product'
 import HowItWorks from './pages/HowItWorks'
 import WhoItsFor from './pages/WhoItsFor'
 import WhyDifferent from './pages/WhyDifferent'
-import Status from './pages/Status'
 import Changelog from './pages/Changelog'
 import Pilot from './pages/Pilot'
 import About from './pages/About'
@@ -47,7 +46,8 @@ export default function App() {
           <Route path="how-it-works" element={<HowItWorks />} />
           <Route path="who-its-for" element={<WhoItsFor />} />
           <Route path="why-different" element={<WhyDifferent />} />
-          <Route path="status" element={<Status />} />
+          {/* Retired: build status is internal, and lives in the staff portal. */}
+          <Route path="status" element={<Navigate to="/product" replace />} />
           <Route path="changelog" element={<Changelog />} />
           <Route path="pilot" element={<Pilot />} />
           <Route path="about" element={<About />} />

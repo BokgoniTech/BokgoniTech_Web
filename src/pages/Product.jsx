@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader'
 import Icon from '../components/Icon'
-import { capabilities, buildState } from '../lib/siteConfig'
+import { capabilities } from '../lib/siteConfig'
 
 export default function Product() {
   return (
@@ -89,33 +89,18 @@ export default function Product() {
         </div>
       </section>
 
-      {/* ---------------------- The part that is not built ------------------- */}
+      {/* --------------------------- Windows only --------------------------- */}
       <section className="section border-t border-brand-800/70 bg-brand-900/30">
-        <div className="container-bt grid gap-8 lg:grid-cols-2">
-          <div className="card border-amber-500/30">
-            <p className="eyebrow mb-3 text-amber-300">The part that is not built</p>
-            <h2 className="text-xl font-bold text-white">Detection and response</h2>
+        <div className="container-bt">
+          <div className="card mx-auto max-w-3xl text-center">
+            <p className="eyebrow mb-3">Scope</p>
+            <h2 className="text-xl font-bold text-white">Windows, done properly</h2>
             <p className="mt-3 text-brand-300">
-              Spotting an attack in progress and cutting a machine off the network.
+              Every collector, every check and every action above is built for Windows and tested
+              on it. There is no Mac or Linux agent — which means none of this is a
+              lowest-common-denominator version of a cross-platform tool. Firewall state comes back
+              per profile, not as a single on-or-off; patching reports per update, not per job.
             </p>
-            <p className="mt-4 text-brand-300">
-              It is deliberately last, and the reason is worth stating: detection built on
-              unreliable information produces confident accusations about the wrong machines. Every
-              question above has to be answered dependably first, or the sixth one generates alarms
-              nobody can check and everyone learns to dismiss.
-            </p>
-          </div>
-
-          <div className="card">
-            <p className="eyebrow mb-3">One thing that exists but is switched off</p>
-            <h2 className="text-xl font-bold text-white">{buildState.switchedOff.label}</h2>
-            <p className="mt-3 text-brand-300">{buildState.switchedOff.text}</p>
-            <Link
-              to="/status"
-              className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
-            >
-              Everything else that is and is not done <Icon name="arrow" className="h-4 w-4" />
-            </Link>
           </div>
         </div>
       </section>
