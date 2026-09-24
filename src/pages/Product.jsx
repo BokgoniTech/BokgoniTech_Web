@@ -96,7 +96,7 @@ export default function Product() {
             <p className="eyebrow mb-3">Scope</p>
             <h2 className="text-xl font-bold text-white">Windows, done properly</h2>
             <p className="mt-3 text-brand-300">
-              Every collector, every check and every action above is built for Windows and tested
+              Every check and every action above is built for Windows and tested
               on it. There is no Mac or Linux agent — which means none of this is a
               lowest-common-denominator version of a cross-platform tool. Firewall state comes back
               per profile, not as a single on-or-off; patching reports per update, not per job.
@@ -109,7 +109,7 @@ export default function Product() {
         <div className="container-bt">
           <div className="card flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
             <p className="text-brand-200">
-              Want to see how the three pieces fit together, or whether this is aimed at you?
+              Want to see what using it looks like, or whether it is aimed at you?
             </p>
             <div className="flex shrink-0 gap-3">
               <Link to="/how-it-works" className="btn-secondary">

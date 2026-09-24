@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import Icon from '../components/Icon'
-import { product, questions, pieces, outcomes, engagement, rule } from '../lib/siteConfig'
+import { product, questions, howItWorks, outcomes, engagement, rule } from '../lib/siteConfig'
 
 export default function Home() {
   return (
@@ -30,39 +30,28 @@ export default function Home() {
             </div>
           </div>
 
-          {/* The three pieces, as a diagram you can read in one pass. */}
+          {/* What using it looks like, in the order it happens. Four steps a
+              buyer can picture — not the parts it is built from. */}
           <div className="lg:col-span-5">
             <div className="card relative">
               <div className="absolute -inset-px -z-10 rounded-2xl bg-gradient-to-br from-accent/20 to-transparent blur-xl" />
-              <p className="eyebrow mb-5">Three pieces. You only ever see one.</p>
-              <div className="space-y-2">
-                {pieces.map((p, i) => (
-                  <div key={p.slug}>
-                    <div className="rounded-xl border border-brand-700/60 bg-brand-950/40 p-4">
-                      <div className="flex items-center gap-3">
-                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-accent/10 text-accent">
-                          <Icon name={p.icon} className="h-5 w-5" />
-                        </span>
-                        <div className="min-w-0">
-                          <p className="font-semibold text-white">{p.name}</p>
-                          <p className="text-xs text-brand-400">{p.where}</p>
-                        </div>
-                      </div>
-                      <p className="mt-3 text-sm text-brand-300">{p.summary}</p>
-                    </div>
-                    {i < pieces.length - 1 && (
-                      <div className="flex justify-center py-1.5 text-brand-600" aria-hidden="true">
-                        <Icon name="arrow" className="h-4 w-4 rotate-90" />
-                      </div>
-                    )}
-                  </div>
+              <p className="eyebrow mb-5">What it looks like in practice</p>
+              <ol className="relative space-y-5 border-l border-brand-700 pl-6">
+                {howItWorks.map((s, i) => (
+                  <li key={s.step} className="relative">
+                    <span className="absolute -left-[31px] grid h-6 w-6 place-items-center rounded-full border border-accent/50 bg-brand-950 text-xs font-bold text-accent">
+                      {i + 1}
+                    </span>
+                    <p className="font-semibold text-white">{s.step}</p>
+                    <p className="mt-1 text-sm text-brand-300">{s.body}</p>
+                  </li>
                 ))}
-              </div>
+              </ol>
               <Link
                 to="/how-it-works"
-                className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
+                className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
               >
-                How they talk to each other <Icon name="arrow" className="h-4 w-4" />
+                What it asks of you <Icon name="arrow" className="h-4 w-4" />
               </Link>
             </div>
           </div>
@@ -145,8 +134,9 @@ export default function Home() {
             <p className="mt-6 text-brand-300">
               Ask most monitoring tools whether a machine has antivirus and they answer{' '}
               <span className="font-semibold text-white">no</span> both when it has none and when
-              the check simply failed. Those need opposite responses. This one keeps them apart, at
-              every layer — so what the dashboard tells you is something you can act on.
+              the check simply failed. Those need opposite responses — one sends you to fix a
+              machine, the other to fix your monitoring. This one keeps them apart, so what you
+              see is something you can act on.
             </p>
             <Link to="/why-different" className="btn-secondary mt-8">
               What that looks like in practice <Icon name="arrow" className="h-4 w-4" />
