@@ -21,11 +21,10 @@ API — it has no access to any customer's fleet data.
 
 | Route | What it is |
 | --- | --- |
-| `/` | What a client gets, what using it looks like, the five questions, the design rule |
+| `/` | What a client gets, what using it looks like, the five questions it answers |
 | `/product` | What it does, capability by capability |
 | `/how-it-works` | Four plain-language steps and what it asks of the customer |
-| `/who-its-for` | The customer, what they are buying, and who it is **not** for |
-| `/why-different` | The one design rule — "not knowing something is different from knowing it is fine" |
+| `/who-its-for` | The customer, what they are buying, and where it fits best |
 | `/changelog` | Published record of what shipped |
 | `/pilot` | Request a pilot (there is no self-service signup — see below) |
 | `/about`, `/contact` | Company and contact details |
@@ -60,15 +59,28 @@ behind the staff portal at `/portal/roadmap`, which is where a roadmap belongs.
 A visitor deciding whether to talk to us needs to know what the product does for
 them, not which capability landed in which sprint.
 
-What survives into the public site is the *discipline*, stated as a benefit
-rather than as a confession:
+Two habits survive into the public site:
 
-- `/why-different` explains that a check that passed and a check that never ran
-  are different facts, and why that is worth having.
 - An empty changelog says *nothing has been published* — not *nothing has been
   built*.
 - The site never offers a download, because there is no hosted installer. It
   offers a pilot request, which is what actually happens.
+
+### The design argument is not a sales page
+
+There used to be a `/why-different` page built on one rule — *not knowing
+something is different from knowing it is fine* — with the antivirus example, six
+places you could check us on, and why a competitor could not bolt it on. It is
+gone, and `/why-different` redirects to `/product`.
+
+Also gone: the *"who it is not for"* list, and the "why this one / because you can
+act on what it tells you" section.
+
+The rule is still how the product is built — it is all over `stages.js` and the
+platform's own docs. It is simply not what the public site leads with. The site
+sells capability: what it does, what using it looks like, and who it suits. If
+you are tempted to argue the philosophy on a page again, put it in a blog post,
+not in the navigation.
 
 ### Architecture is internal too
 

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader'
 import Icon from '../components/Icon'
-import { product, rule, questions, contact } from '../lib/siteConfig'
+import { product, questions, contact } from '../lib/siteConfig'
 
 const values = ['Careful', 'Straightforward', 'Windows-focused', 'Built to be trusted']
 
@@ -24,9 +24,9 @@ export default function About() {
                 sitting in front of.
               </p>
               <p>
-                It started from the work of actually supporting small businesses — and from the
-                specific frustration of monitoring tools that answer confidently when they should
-                say they do not know. That frustration is now the product’s design rule.
+                It started from the work of actually supporting small businesses: the hours that go
+                into finding out what is wrong with a machine before anyone can begin fixing it, and
+                the drive across town to restart a service that had stopped.
               </p>
               <p>
                 We are a small team, and we build the whole thing ourselves. That is the reason a
@@ -38,8 +38,8 @@ export default function About() {
             <div className="mt-10">
               <p className="eyebrow mb-3">What we are building toward</p>
               <p className="text-xl font-medium text-white">
-                A tool a technician trusts at 2am — because it has never told them something
-                reassuring it could not support.
+                One page that answers what a technician needs to know, so the work is fixing things
+                rather than finding out.
               </p>
             </div>
 
@@ -55,13 +55,15 @@ export default function About() {
             </div>
 
             <div className="card mt-10 border-l-2 border-l-accent">
-              <p className="eyebrow mb-2">The rule everything follows</p>
-              <p className="text-lg font-semibold text-white">{rule}</p>
+              <p className="eyebrow mb-2">What we are for</p>
+              <p className="text-lg font-semibold text-white">
+                Small IT teams looking after Windows machines they cannot walk over to.
+              </p>
               <Link
-                to="/why-different"
+                to="/who-its-for"
                 className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
               >
-                Why that is the whole product <Icon name="arrow" className="h-4 w-4" />
+                Whether that is you <Icon name="arrow" className="h-4 w-4" />
               </Link>
             </div>
           </div>

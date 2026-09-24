@@ -281,8 +281,8 @@ export const audiences = [
 ]
 
 export const buying = {
-  headline: 'The end of not knowing.',
-  intro: 'Not features. The specific relief is being able to answer, in under a minute:',
+  headline: 'Answers, in under a minute.',
+  intro: 'The questions that take an afternoon today, and should take a glance:',
   answers: [
     'Are all our machines patched?',
     'Is the antivirus actually on, everywhere?',
@@ -311,86 +311,12 @@ export const savings = [
   },
 ]
 
-export const notFor = [
-  {
-    label: 'Very large companies',
-    text: 'Anyone with a thousand machines and a proper IT department already has Intune or SCCM, and their problem is not visibility.',
-  },
-  {
-    label: 'Anyone who needs Mac or Linux',
-    text: 'This is Windows only. That is not a limitation to apologise for — it is where the customers are — but it is a hard no for a mixed estate.',
-  },
-  {
-    label: 'Anyone wanting to remote-control a screen',
-    text: 'There is no screen sharing. It is a considered omission: it is a large piece of work with its own security model, and nothing else depends on it.',
-  },
-]
-
-// Qualification, kept deliberately. "Who it is not for" is not self-deprecation
-// — it is the fastest way for the right customer to recognise themselves, and
-// it saves everybody a month finding out.
+// Where it fits best. Positive framing only: the site no longer carries a
+// "who it is not for" list, so this is the one place that helps the right
+// customer recognise themselves.
 
 export const bestFit =
   'A small IT services firm looking after a few hundred Windows machines across a handful of clients, or the one person responsible for everything at a company of forty. If that is you, a month on one client will tell you more than any demo.'
-
-// --- What makes it different ------------------------------------------------
-
-export const rule = 'Not knowing something is different from knowing it is fine.'
-
-export const ruleProblem = {
-  intro:
-    'Ask a monitoring tool: does this machine have antivirus? Most will answer no in two completely different situations:',
-  cases: [
-    'The machine genuinely has no antivirus',
-    'The check failed — no permission, a service was down, the machine did not answer',
-  ],
-  outro:
-    'Those need opposite responses. The first sends you to fix a machine. The second sends you to fix your monitoring. A tool that reports them identically will, sooner or later, tell you a fleet is healthy when it has simply stopped looking.',
-}
-
-export const rulePractice = [
-  {
-    label: 'A check that could not run says so',
-    text: 'It does not report zero. If the firewall could not be checked, your screen says “could not check”, not “firewall off”.',
-  },
-  {
-    label: 'A scan with a date attached',
-    text: 'Patch information is shown with when it was last checked. A machine that last looked for updates three weeks ago is not a machine with no updates pending — it is a machine that has stopped asking, which is a different and often worse problem.',
-  },
-  {
-    label: 'A schedule that ran and did nothing says so',
-    text: 'A machine can be busy, offline, or removed, and none of those produce a result. Every scheduled run records what happened to every machine, including the ones it skipped — so a nightly job quietly skipping the one machine that needed it is visible instead of invisible.',
-  },
-  {
-    label: '“Installed” and “installed, needs a restart” are different',
-    text: 'An update that needs a reboot has not taken effect. Reporting it as done would say a machine is patched while the hole is still open.',
-  },
-  {
-    label: 'An update the run never reached is not a failure',
-    text: 'If a patch job stops halfway, the ones it never got to are recorded as not attempted — not omitted, which would make them look out of scope, and not failed, which would accuse something that never ran.',
-  },
-  {
-    label: 'An empty list is never a silent success',
-    text: 'No local accounts on a Windows machine is impossible, so that is reported as a failed read, not as a machine with no accounts.',
-  },
-]
-
-// Why a competitor cannot simply add this. Stated as the consequence for a
-// customer rather than as the four layers it actually touches — the engineering
-// argument is real, but it asks a buyer to evaluate our internals instead of
-// our product.
-
-export const ruleIsStructural = {
-  title: 'It is not a setting anyone can switch on',
-  body: 'Telling “we checked and it is fine” apart from “we could not check” has to hold from the moment a reading is taken to the moment it reaches your screen. Miss it anywhere along the way and the difference is gone before anybody sees it. That is why most tools do not have it — not because nobody thought of it, but because it has to be there from the beginning. It was here from the beginning.',
-}
-
-// The rule, stated as the benefit it buys rather than as a confession about
-// what the product is not. Same claim, written for somebody choosing a tool.
-export const rulePayoff = {
-  title: 'What that is worth to you',
-  body: 'You can act on what the dashboard says. A green tick means a check ran and passed, not that a check was attempted. When something could not be read you are told, so the one machine that quietly stopped reporting shows up as a machine to look at rather than disappearing into a healthy-looking fleet.',
-}
 
 // --- Changelog areas (the public build log) ----------------------------------
 

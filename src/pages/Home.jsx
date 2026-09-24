@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import Icon from '../components/Icon'
-import { product, questions, howItWorks, outcomes, engagement, rule } from '../lib/siteConfig'
+import { product, questions, howItWorks, outcomes, engagement } from '../lib/siteConfig'
 
 export default function Home() {
   return (
@@ -63,9 +63,7 @@ export default function Home() {
         <div className="container-bt">
           <div className="mb-10 max-w-2xl">
             <p className="eyebrow mb-3">What you get</p>
-            <h2 className="text-3xl font-bold text-white">
-              The end of not knowing.
-            </h2>
+            <h2 className="text-3xl font-bold text-white">Four things that change on day one.</h2>
             <p className="mt-3 text-brand-300">
               Everything below is answerable today by walking to a machine or asking someone to
               check. The value is that it becomes quick, and correct, and stays true tomorrow.
@@ -123,30 +121,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ----------------------------- The rule ----------------------------- */}
-      <section className="section border-t border-brand-800/70">
-        <div className="container-bt">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="eyebrow mb-4">Why this one</p>
-            <blockquote className="text-2xl font-bold leading-snug text-white sm:text-3xl">
-              “{rule}”
-            </blockquote>
-            <p className="mt-6 text-brand-300">
-              Ask most monitoring tools whether a machine has antivirus and they answer{' '}
-              <span className="font-semibold text-white">no</span> both when it has none and when
-              the check simply failed. Those need opposite responses — one sends you to fix a
-              machine, the other to fix your monitoring. This one keeps them apart, so what you
-              see is something you can act on.
-            </p>
-            <Link to="/why-different" className="btn-secondary mt-8">
-              What that looks like in practice <Icon name="arrow" className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* ------------------------- Working with us -------------------------- */}
-      <section className="section border-t border-brand-800/70 bg-brand-900/30">
+      <section className="section border-t border-brand-800/70">
         <div className="container-bt">
           <div className="mb-10 max-w-2xl">
             <p className="eyebrow mb-3">Working with us</p>
