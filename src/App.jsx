@@ -8,7 +8,6 @@ import Home from './pages/Home'
 import Product from './pages/Product'
 import HowItWorks from './pages/HowItWorks'
 import WhoItsFor from './pages/WhoItsFor'
-import WhyDifferent from './pages/WhyDifferent'
 import Changelog from './pages/Changelog'
 import Pilot from './pages/Pilot'
 import About from './pages/About'
@@ -45,7 +44,8 @@ export default function App() {
           <Route path="product" element={<Product />} />
           <Route path="how-it-works" element={<HowItWorks />} />
           <Route path="who-its-for" element={<WhoItsFor />} />
-          <Route path="why-different" element={<WhyDifferent />} />
+          {/* Retired: the site leads on capability rather than on a design argument. */}
+          <Route path="why-different" element={<Navigate to="/product" replace />} />
           {/* Retired: build status is internal, and lives in the staff portal. */}
           <Route path="status" element={<Navigate to="/product" replace />} />
           <Route path="changelog" element={<Changelog />} />
