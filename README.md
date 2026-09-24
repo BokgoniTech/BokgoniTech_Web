@@ -21,9 +21,9 @@ API — it has no access to any customer's fleet data.
 
 | Route | What it is |
 | --- | --- |
-| `/` | The product: what a client gets, the five questions, the three pieces, the design rule |
+| `/` | What a client gets, what using it looks like, the five questions, the design rule |
 | `/product` | What it does, capability by capability |
-| `/how-it-works` | The three pieces, how a command travels, why long jobs are different, the stack |
+| `/how-it-works` | Four plain-language steps and what it asks of the customer |
 | `/who-its-for` | The customer, what they are buying, and who it is **not** for |
 | `/why-different` | The one design rule — "not knowing something is different from knowing it is fine" |
 | `/changelog` | Published record of what shipped |
@@ -69,6 +69,22 @@ rather than as a confession:
   built*.
 - The site never offers a download, because there is no hosted installer. It
   offers a pilot request, which is what actually happens.
+
+### Architecture is internal too
+
+The public site does not describe how the platform is built. There is no
+agent/backend/dashboard diagram, no command lifecycle, and no stack table naming
+Rust, PostgreSQL or Next.js. `/how-it-works` answers the question a buyer is
+actually asking — *what does using this look like, and what does it ask of me* —
+in four plain steps.
+
+Two reasons. A customer is not buying a diagram; they are buying the fact that a
+machine in another building appears on a page and can be acted on. And putting
+the internals on a sales page invites a visitor to evaluate our design decisions
+instead of whether the product solves their problem.
+
+The technical account still exists in each repository's own documentation, which
+is where somebody who needs it will look. Keep it out of `siteConfig.js`.
 
 If you add a page, keep to that. Claiming something works before it does is the
 one thing this product is built not to do.

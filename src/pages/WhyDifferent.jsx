@@ -5,8 +5,7 @@ import {
   rule,
   ruleProblem,
   rulePractice,
-  ruleLayers,
-  ruleLayersNote,
+  ruleIsStructural,
   rulePayoff,
 } from '../lib/siteConfig'
 
@@ -16,7 +15,7 @@ export default function WhyDifferent() {
       <PageHeader
         eyebrow="What makes it different"
         title="One rule, applied everywhere"
-        subtitle="Not a feature — a discipline, in every layer."
+        subtitle="Not a feature — a discipline, in everything it reports."
       />
 
       {/* ------------------------------ The rule ---------------------------- */}
@@ -94,29 +93,11 @@ export default function WhyDifferent() {
 
       {/* --------------------- Why it is hard to add later ------------------- */}
       <section className="section border-t border-brand-800/70 bg-brand-900/30">
-        <div className="container-bt grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <p className="eyebrow mb-3">Why this is hard to add later</p>
-            <h2 className="text-3xl font-bold text-white">
-              It is a decision at every layer, made the same way.
-            </h2>
-            <p className="mt-4 text-brand-300">{ruleLayersNote}</p>
-          </div>
-
-          <div className="lg:col-span-7">
-            <div className="overflow-hidden rounded-2xl border border-brand-700/70">
-              {ruleLayers.map((l, i) => (
-                <div
-                  key={l.layer}
-                  className={`flex flex-col gap-1 px-5 py-4 sm:flex-row sm:items-baseline sm:gap-4 ${
-                    i > 0 ? 'border-t border-brand-800' : ''
-                  }`}
-                >
-                  <p className="w-40 shrink-0 font-semibold text-white">{l.layer}</p>
-                  <p className="text-sm text-brand-300">{l.must}</p>
-                </div>
-              ))}
-            </div>
+        <div className="container-bt">
+          <div className="mx-auto max-w-3xl">
+            <p className="eyebrow mb-3">Why a competitor cannot simply add it</p>
+            <h2 className="text-3xl font-bold text-white">{ruleIsStructural.title}</h2>
+            <p className="mt-5 text-brand-300">{ruleIsStructural.body}</p>
           </div>
         </div>
       </section>

@@ -105,7 +105,7 @@ export const outcomes = [
 export const engagement = [
   {
     step: 'We set it up with you',
-    body: 'One command puts the agent on a machine, and we do the first ones alongside you. Nothing to rack, nothing to learn before it starts reporting.',
+    body: 'One command puts it on a machine, and we do the first ones alongside you. Nothing to rack, nothing to learn before it starts reporting.',
   },
   {
     step: 'You watch a real fleet for a month',
@@ -113,7 +113,7 @@ export const engagement = [
   },
   {
     step: 'We stay reachable',
-    body: 'We build the platform ourselves, so a question about why a machine reported something odd reaches the people who wrote the collector.',
+    body: 'We build the platform ourselves, so a question about why a machine reported something odd reaches the people who built it, not a support tier reading from a script.',
   },
 ]
 
@@ -125,7 +125,7 @@ export const capabilities = [
     icon: 'list',
     nav: 'What you have',
     title: 'It tells you what computers you have',
-    body: 'Every machine that has the agent installed appears in a list. For each one you can see the make and model, how much memory and disk it has, what version of Windows it runs, and what software is installed.',
+    body: 'Every machine you have installed it on appears in a list. For each one you can see the make and model, how much memory and disk it has, what version of Windows it runs, and what software is installed.',
     pullTitle: 'Why that is worth anything',
     pull: 'Most people who look after twenty computers do not actually have a list of them. They have a spreadsheet somebody stopped updating, and a memory of a laptop somebody left with.',
   },
@@ -202,100 +202,63 @@ export const capabilities = [
   },
 ]
 
-// --- How it works: the three pieces -----------------------------------------
+// --- How it works, for the person buying it ----------------------------------
+//
+// Deliberately not architecture. There are three moving parts and they are
+// interesting to build, but a customer is not buying a diagram — they are
+// buying the fact that a machine in another building appears on a page and
+// can be acted on. How that is achieved is our problem, and putting it on the
+// website invites an evaluation of our design decisions instead of our
+// product.
+//
+// The technical account still exists, in the platform's own docs. It is not
+// marketing material.
 
-export const pieces = [
+export const howItWorks = [
   {
-    slug: 'agent',
-    name: 'The agent',
-    where: 'the machine you look after',
+    icon: 'download',
+    step: 'Install it on a machine',
+    body: 'One command, once, per computer. It runs quietly in the background from then on and starts with the machine, so nobody has to be logged in for it to work.',
+    detail: 'We do the first ones with you.',
+  },
+  {
     icon: 'monitor',
-    summary: 'A small Windows service. Reports every minute, runs what you ask.',
-    body: 'A small program installed on each machine, running as a Windows service — so it starts with the computer and nobody has to be signed in. Once a minute it looks at the machine and sends a report. It holds a connection open so you can send it work.',
-    points: [
-      {
-        label: 'It dials out, never in',
-        text: 'Your server never connects to a customer’s machine. This is not a preference — most machines sit behind a router or a firewall you do not control, and nothing outside can reach them. The agent making the call is the only arrangement that works, and it happens to be the safer one: there is no door on the customer’s machine for anyone to knock on.',
-      },
-      {
-        label: 'If it cannot reach your server, it keeps the reports on disk',
-        text: 'They are sent when the connection comes back. A laptop that spent the weekend offline does not lose the weekend.',
-      },
-    ],
+    step: 'The machine appears on your page',
+    body: 'Within a minute it reports what it is, what is on it and how it is doing — and keeps doing so. Laptops that go home and come back fill in the gap rather than losing it.',
+    detail: 'Nothing to open on the machine, and nothing for the user to notice.',
   },
   {
-    slug: 'backend',
-    name: 'The backend',
-    where: 'your server',
-    icon: 'database',
-    summary: 'Stores it all. Decides what needs attention.',
-    body: 'Where everything is stored and every decision is made. It keeps the history for every machine, checks alert rules and sends the emails, and holds the record of every command ever issued — who, what, when, and the result.',
-    points: [
-      {
-        label: 'Every customer’s data is separated at the database level',
-        text: 'Not by a filter somebody remembered to write. A query that forgot to say “and only this customer” returns nothing rather than everything, because the database itself refuses.',
-      },
-    ],
+    icon: 'bell',
+    step: 'You get told when something matters',
+    body: 'You set the lines that matter to you — free disk, missing updates, antivirus off — and hear about a machine crossing one by email, once, with a note when it clears.',
+    detail: 'Quiet by default. Alerts you can trust are alerts you still read in month six.',
   },
   {
-    slug: 'dashboard',
-    name: 'The dashboard',
-    where: 'your browser',
-    icon: 'dashboard',
-    summary: 'The web page you actually look at.',
-    body: 'A list of machines, a page per machine, alerts, and the administrative settings. It reads from your server.',
-    points: [
-      {
-        label: 'It never talks to a customer’s machine directly',
-        text: 'What you are looking at is your server’s record, not something the machine under investigation told the page just now.',
-      },
-    ],
+    icon: 'bolt',
+    step: 'You fix it from where you are',
+    body: 'Install the updates, restart the service, run a saved script, reboot the machine — on one computer or a group, without a trip and without interrupting anyone to ask for access.',
+    detail: 'Every action is recorded: what ran, who asked for it, and what came back.',
   },
 ]
 
-// --- How a command travels ---------------------------------------------------
+// What it asks of the customer. Buyers ask this early and it is a short list,
+// which is itself the selling point.
 
-export const commandLifecycle = [
-  { actor: 'You', text: 'click “Restart the print spooler” on a machine’s page' },
-  { actor: 'The dashboard', text: 'tells the backend; the backend writes it down as issued' },
-  { actor: 'The agent', text: 'holding its connection open, picks it up' },
+export const requirements = [
   {
-    actor: 'The agent',
-    text: 'writes it to disk before running it. If the machine dies mid-command, it knows on restart that it owes you an answer',
-    emphasis: true,
-  },
-  { actor: 'The agent', text: 'runs it, and sends back what happened' },
-  { actor: 'The backend', text: 'records the result' },
-]
-
-export const commandLifecycleNotes = [
-  {
-    label: 'Why the audit trail is trustworthy',
-    text: 'At every step both sides can say what state the command is in. A command that was never delivered, one still running, and one that finished are three different things — and a tool that cannot tell them apart will eventually tell you a machine is fine when nobody ever asked it anything.',
+    label: 'Windows machines',
+    text: 'Windows only — desktops, laptops and servers. No Mac or Linux agent.',
   },
   {
-    label: 'One command at a time per machine',
-    text: 'Two commands racing on the same computer is how you get results that do not match what happened.',
+    label: 'An internet connection',
+    text: 'The machine reaches out to us. Nothing needs opening on your firewall or router, and nothing outside can knock on a machine.',
+  },
+  {
+    label: 'Nothing else',
+    text: 'No server to buy, no appliance to rack, no agent licence per technician, and no change to how people work.',
   },
 ]
 
-export const longJobs = {
-  title: 'Long jobs are different',
-  body: 'Installing updates takes an hour and restarts the machine partway. The program reporting back dies with the machine. So those are a separate kind of work: the agent reports progress as it goes — each report buys it more time — and it says in advance when it is about to restart the machine, so the server knows the silence is expected rather than a crash. Afterwards it picks up where it left off.',
-  note: 'Only that kind of work resumes. An ordinary script that was interrupted is never re-run automatically: nobody can know whether a half-finished script is safe to repeat, and only a person has the context to judge it.',
-}
-
-export const stack = [
-  { piece: 'Agent', builtWith: 'Rust', why: 'One small file, no runtime to install, low memory' },
-  {
-    piece: 'Backend',
-    builtWith: 'Rust, PostgreSQL',
-    why: 'Same reasons, plus a database that enforces the customer separation itself',
-  },
-  { piece: 'Dashboard', builtWith: 'Next.js', why: 'Ordinary web tooling' },
-]
-
-export const stackNote = 'Runs on one modest server today. Nothing here needs a cluster.'
 
 // --- Who it is for ----------------------------------------------------------
 
@@ -387,8 +350,8 @@ export const ruleProblem = {
 
 export const rulePractice = [
   {
-    label: 'A collector that cannot read something says so',
-    text: 'It does not report zero. If the agent cannot check the firewall, the dashboard says “could not check”, not “firewall off”.',
+    label: 'A check that could not run says so',
+    text: 'It does not report zero. If the firewall could not be checked, your screen says “could not check”, not “firewall off”.',
   },
   {
     label: 'A scan with a date attached',
@@ -412,18 +375,15 @@ export const rulePractice = [
   },
 ]
 
-export const ruleLayers = [
-  { layer: 'The agent', must: 'must distinguish “read it, found nothing” from “could not read”' },
-  { layer: 'The wire format', must: 'must be able to carry the difference' },
-  { layer: 'The database', must: 'must store absent as different from zero' },
-  {
-    layer: 'The dashboard',
-    must: 'must render “unknown” as unknown rather than as a dash that looks like a zero',
-  },
-]
+// Why a competitor cannot simply add this. Stated as the consequence for a
+// customer rather than as the four layers it actually touches — the engineering
+// argument is real, but it asks a buyer to evaluate our internals instead of
+// our product.
 
-export const ruleLayersNote =
-  'Miss it in any one of those and the distinction is gone by the time it reaches a person. Which is why most tools do not have it — not because nobody thought of it, but because it has to be there from the beginning.'
+export const ruleIsStructural = {
+  title: 'It is not a setting anyone can switch on',
+  body: 'Telling “we checked and it is fine” apart from “we could not check” has to hold from the moment a reading is taken to the moment it reaches your screen. Miss it anywhere along the way and the difference is gone before anybody sees it. That is why most tools do not have it — not because nobody thought of it, but because it has to be there from the beginning. It was here from the beginning.',
+}
 
 // The rule, stated as the benefit it buys rather than as a confession about
 // what the product is not. Same claim, written for somebody choosing a tool.

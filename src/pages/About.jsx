@@ -3,7 +3,7 @@ import PageHeader from '../components/PageHeader'
 import Icon from '../components/Icon'
 import { product, rule, questions, contact } from '../lib/siteConfig'
 
-const values = ['Careful', 'Honest about gaps', 'Windows-focused', 'Built to be trusted']
+const values = ['Careful', 'Straightforward', 'Windows-focused', 'Built to be trusted']
 
 export default function About() {
   return (
@@ -29,10 +29,9 @@ export default function About() {
                 say they do not know. That frustration is now the product’s design rule.
               </p>
               <p>
-                We are a small team, which is the reason the product is the way it is: we write
-                the agent, the backend and the dashboard ourselves, so a question about why a
-                machine reported something odd reaches the person who wrote the collector rather
-                than a support tier.
+                We are a small team, and we build the whole thing ourselves. That is the reason a
+                question about why a machine reported something odd reaches the person who built
+                that part of it, rather than a support tier reading from a script.
               </p>
             </div>
 
